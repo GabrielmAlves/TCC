@@ -23,5 +23,13 @@ namespace PlayerClassifier.WPF.View
         {
             InitializeComponent();
         }
+
+        private void Window_MouseDown (object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed )
+            {
+                DragMove();
+            }
+        }
     }
 }

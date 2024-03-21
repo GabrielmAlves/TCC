@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PlayerClassifier.WPF/1.0.0": {
+        "runtime": {
+          "PlayerClassifier.WPF.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PlayerClassifier.WPF/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
