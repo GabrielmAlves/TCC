@@ -13,8 +13,8 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
- 
-        <Border CornerRadius="50"
+
+    <Border CornerRadius="50"
             BorderBrush="AntiqueWhite"
             BorderThickness="3">
         <Border.Background>
@@ -33,10 +33,11 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="139*"/>
+                    <ColumnDefinition Width="231*"/>
                     <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Login"
@@ -45,23 +46,79 @@
                            FontFamily="Montserrat"
                            Grid.Column="0"
                            VerticalAlignment="Center"
-                           Margin="30,0,0,0"/>
+                           Margin="30,0,0,0" Height="24" Grid.ColumnSpan="2"/>
 
                 <Button x:Name="btnMinimize"
-                        Background="black"
                         BorderThickness="0"
                         Content="-"
                         Foreground="white"
                         FontSize="16"
                         FontFamily="Montserrat"
                         Cursor="Hand"
-                        Grid.Column="1"
-                        Click="btnMinimize_Click"/>
+                        Grid.Column="2"
+                        Click="btnMinimize_Click">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18" CornerRadius="9" Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+                <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="white"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="3"
+                        Click="btnClose_Click" Margin="0,0,6,0">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="red"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18" CornerRadius="9" Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
             </Grid>
         </Grid>
 
     </Border>
-            
+
 
 </Window>
