@@ -14,10 +14,16 @@
         MouseDown="Window_MouseDown">
 
     <Border CornerRadius="50"
-            Background="#10801D"
             BorderBrush="AntiqueWhite"
             BorderThickness="5">
-        
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="#10801D" Offset="0"/>
+                <GradientStop Color="#10801D" Offset="0.5"/>
+                <GradientStop Color="#FFF" Offset="0.5"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
     </Border>  
   
 </Window>
