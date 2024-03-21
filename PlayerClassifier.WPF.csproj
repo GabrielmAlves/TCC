@@ -9,9 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <None Remove="Images\green-circle.png" />
+    <None Remove="Images\soccer-field %281%29.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\green-circle.png" />
+    <Resource Include="Images\soccer-field (1).png" />
   </ItemGroup>
 
 </Project>
