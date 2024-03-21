@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlayerClassifier.WPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea43dfaeaf2a6407577f9f2c27686c2134b25849")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlayerClassifier.WPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlayerClassifier.WPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
