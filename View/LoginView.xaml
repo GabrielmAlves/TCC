@@ -178,7 +178,8 @@
                     Foreground="black"
                     FontSize="12"
                     FontWeight="Medium"
-                    FontFamily="Suez One"/>
+                    FontFamily="Suez One"
+                    Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal"
