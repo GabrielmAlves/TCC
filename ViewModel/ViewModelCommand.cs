@@ -34,7 +34,7 @@ namespace PlayerClassifier.WPF.ViewModel
         //métodos
         public bool CanExecute(object? parameter) //se o _canExecute for (null), retorna true pq a validação do predicate não foi estabelecida. se não, retorna o valor 
         {                                         //do delegate, ou seja, o método que vai ser definido e delegado na ViewModel  
-            return _canExecuteAction = null ? true : _canExecuteAction(parameter); 
+            return _canExecuteAction == null ? true : _canExecuteAction(parameter); 
         }
 
         public void Execute(object? parameter)
