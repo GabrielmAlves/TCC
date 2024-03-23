@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -31,5 +32,41 @@ namespace PlayerClassifier.WPF.ViewModel
             get { return _isViewVisible; }
             set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } 
             }
+
+        //definindo os comandos 
+
+        public ICommand LoginCommand { get; }
+        public ICommand ShowPasswordCommand { get; }
+        public ICommand RecoverPasswordCommand { get; }
+        public ICommand RememberMeCommand { get; }
+
+        public LoginViewModel ()
+        {
+            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
+        }
+
+        private bool CanExecuteLoginCommand (object obj)
+        {
+            bool validData;
+            
+            if (string.IsNullOrEmpty(UserEmail) || UserEmail.Length < 3 || Password == null || Password.Length < 3)
+            {
+                validData = false;
+            }
+            else
+                validData = true; //se os campos não estiverem vazios, o botão de login fica habilitado e vc pode clicar nele
+            return validData;
+        }
+
+        private bool ExecuteLoginCommand (object obj)
+        {
+            
+        }
+
+        private bool ExecuteRecoverPasswordCommand (object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
