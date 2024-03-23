@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
+        xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
         mc:Ignorable="d"
         Title="Login" Height="550" Width="800"
         WindowStyle="None"
@@ -12,6 +13,12 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+    
+    
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="SuezOneTextBlockStyle">
             <Setter Property="FontFamily" Value="Suez One" />

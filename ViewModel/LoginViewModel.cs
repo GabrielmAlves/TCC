@@ -61,12 +61,13 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private bool ExecuteLoginCommand (object obj)
         {
-            
+            return false;
         }
 
         private bool ExecuteRecoverPasswordCommand (object obj)
         {
             throw new NotImplementedException();
+            return true;
         }
     }
 }
