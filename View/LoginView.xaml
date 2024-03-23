@@ -17,13 +17,16 @@
     <Window.DataContext>
         <viewModel:LoginViewModel/>
     </Window.DataContext>
-    
-    
+
     <Window.Resources>
-        <Style TargetType="TextBlock" x:Key="SuezOneTextBlockStyle">
-            <Setter Property="FontFamily" Value="Suez One" />
-        </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+    
+    
 
     <Border CornerRadius="50"
             BorderBrush="AntiqueWhite"
@@ -131,7 +134,6 @@
                            Foreground="black"
                            FontSize="25"
                            FontWeight="Medium"
-                           Style="{StaticResource SuezOneTextBlockStyle}"
                            HorizontalAlignment="Center"/>
 
                 <TextBlock Text="E-mail"
@@ -143,6 +145,7 @@
                            Margin="0,25,0,0"/>
 
                 <TextBox x:Name="txtUserName"
+                         Text="{Binding UserEmail}"
                          FontSize="13"
                          Background="Transparent"
                          FontWeight="Medium"   
