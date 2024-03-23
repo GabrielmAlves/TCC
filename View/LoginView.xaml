@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
-        xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
+        xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel" 
+        xmlns:customcontrols="clr-namespace:PlayerClassifier.WPF.CustomControls"
         mc:Ignorable="d"
         Title="Login" Height="550" Width="800"
         WindowStyle="None"
@@ -145,7 +146,7 @@
                            Margin="0,25,0,0"/>
 
                 <TextBox x:Name="txtUserName"
-                         Text="{Binding UserEmail}"
+                         Text="{Binding UserEmail, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="13"
                          Background="Transparent"
                          FontWeight="Medium"   
@@ -167,19 +168,12 @@
                        HorizontalAlignment="Left"
                        Margin="0,15,0,0"/>
 
-                <PasswordBox x:Name="txtSenha"
-                     FontSize="13"
-                     Background="Transparent"
-                     FontWeight="Medium"   
-                     Foreground="black"
-                     CaretBrush="LightGray"
-                     BorderBrush="DarkGray"
-                     BorderThickness="0,0,0,1"
+                <customcontrols:BindablePasswordBox
+                    Password="{Binding Password}"
                      Height="28"
-                     VerticalContentAlignment="Center"
                      Margin="0,5,0,0" >
 
-                </PasswordBox>
+                </customcontrols:BindablePasswordBox>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
@@ -198,7 +192,17 @@
                     <CheckBox Content="Lembrar de mim" IsChecked="False"/>
                 </StackPanel>
 
+
+                <TextBlock Text="{Binding ErrorMessage}"
+                    Foreground="#D75960"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    FontFamily="Suez One"
+                    Margin="0,10,0,0"
+                    TextWrapping="Wrap"/>
+
                 <Button x:Name="btnLogin"
+                    Command="{Binding LoginCommand}"
                     BorderThickness="0"
                     Content="Login"
                     Foreground="white"
@@ -206,8 +210,7 @@
                     FontFamily="Montserrat"
                     Cursor="Hand"
                     Grid.Column="3"
-                    Margin="0,50,0,0"
-                    Click="btnClose_Click">
+                    Margin="0,50,0,0">
 
                     <Button.Style>
                         <Style TargetType="Button">

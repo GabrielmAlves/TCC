@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,7 +13,7 @@ namespace PlayerClassifier.WPF.ViewModel
         //definindo properties que vão estabelecer o binding entre View e ViewModel
 
         private string _userEmail;
-        private string _password;
+        private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true; //para ver se a View é visível (se o login der certo, hide the view)
 
@@ -20,7 +21,7 @@ namespace PlayerClassifier.WPF.ViewModel
             get { return _userEmail; }
             set { _userEmail = value; OnPropertyChanged(nameof(UserEmail)); } //OnPropertyChanged chamado para notificar que o valor da property foi alterado
         }
-        public string Password { 
+        public SecureString Password { 
             get { return _password; } 
             set { _password = value; OnPropertyChanged(nameof(Password)); } 
         }
@@ -43,7 +44,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public LoginViewModel ()
         {
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
+            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         }
 
         private bool CanExecuteLoginCommand (object obj)
@@ -59,15 +60,15 @@ namespace PlayerClassifier.WPF.ViewModel
             return validData;
         }
 
-        private bool ExecuteLoginCommand (object obj)
+        private void ExecuteLoginCommand (object obj)
         {
-            return false;
+            
+
         }
 
-        private bool ExecuteRecoverPasswordCommand (object obj)
+        private void ExecuteRecoverPasswordCommand (string username, string email)
         {
-            throw new NotImplementedException();
-            return true;
+            
         }
     }
 }
