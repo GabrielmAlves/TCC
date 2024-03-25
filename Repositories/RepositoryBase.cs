@@ -9,6 +9,11 @@ namespace PlayerClassifier.WPF.Repositories
 {
     public abstract class RepositoryBase
     {
+        private readonly string _connectionString;
 
+        public RepositoryBase ()
+        {
+            _connectionString = "";
+        }
     }
 }
