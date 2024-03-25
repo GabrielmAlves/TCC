@@ -1,10 +1,13 @@
-﻿using System;
+﻿using PlayerClassifier.WPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PlayerClassifier.WPF.Repositories;
+using System.Security.Principal;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -12,11 +15,18 @@ namespace PlayerClassifier.WPF.ViewModel
     {
         //definindo properties que vão estabelecer o binding entre View e ViewModel
 
+        private string _username;
         private string _userEmail;
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true; //para ver se a View é visível (se o login der certo, hide the view)
+        private IUserRepository userRepository;
 
+        public string Username
+        {
+            get { return _username; }
+            set { _username = value; OnPropertyChanged(nameof(Username)); }
+        }
         public string UserEmail {
             get { return _userEmail; }
             set { _userEmail = value; OnPropertyChanged(nameof(UserEmail)); } //OnPropertyChanged chamado para notificar que o valor da property foi alterado
@@ -43,6 +53,7 @@ namespace PlayerClassifier.WPF.ViewModel
 
         public LoginViewModel ()
         {
+            userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         }
@@ -62,8 +73,15 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private void ExecuteLoginCommand (object obj)
         {
-            
-
+            var isValidUser = userRepository.AuthenticateUser(new System.Net.NetworkCredential(Username, Password));
+            if (isValidUser)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                IsViewVisible = false; //login bem sucedido, esconde a tela 
+            } else
+            {
+                ErrorMessage = "Usuário ou senha inválidos.";
+            }
         }
 
         private void ExecuteRecoverPasswordCommand (string username, string email)
