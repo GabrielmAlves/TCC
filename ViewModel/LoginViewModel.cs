@@ -62,7 +62,7 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             bool validData;
             
-            if (string.IsNullOrEmpty(UserEmail) || UserEmail.Length < 3 || Password == null || Password.Length < 3)
+            if (string.IsNullOrEmpty(Username) || Username.Length < 3 || Password == null || Password.Length < 3)
             {
                 validData = false;
             }

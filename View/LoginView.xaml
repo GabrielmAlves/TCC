@@ -146,7 +146,7 @@
                            Margin="0,25,0,0"/>
 
                 <TextBox x:Name="txtUserName"
-                         Text="{Binding UserEmail, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="13"
                          Background="Transparent"
                          FontWeight="Medium"   

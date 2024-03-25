@@ -19,27 +19,23 @@ namespace PlayerClassifier.WPF.Repositories
         public bool AuthenticateUser(NetworkCredential credential) //esse método estabelece uma conexão com o SQL Server e faz uma query. Se bem sucedida, o usuário é válido
         {
             bool validUser;
+            int userCount;
             
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from [UsersPc] where Name=@username and [Password]=@password";
+                command.CommandText = "select COUNT(*) from [UsersPc] where Name=@username and [Password]=@password";
                 command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? true : false;
-
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                userCount = Convert.ToInt32(command.ExecuteScalar());
+                if (userCount > 0)
                 {
-                    while (reader.Read())
-                    {
-                        Guid userId = reader.GetGuid(0);
-                        string userName = reader.GetString(1);
-                        string email = reader.GetString(2);
-                        Console.WriteLine($"UserID: {userId}, UserName: {userName}, Email: {email}");
-                }
+                    validUser = true;
+                } else
+                {
+                    validUser = false;
                 }
             }
             return validUser;
