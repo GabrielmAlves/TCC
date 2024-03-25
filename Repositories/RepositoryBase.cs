@@ -13,7 +13,12 @@ namespace PlayerClassifier.WPF.Repositories
 
         public RepositoryBase ()
         {
-            _connectionString = "";
+            _connectionString = "Server=localhost;Database=master;Trusted_Connection=True;"; //string de conexão com o SQL Server
+        }
+
+        protected SqlConnection GetConnection()
+        {
+            return new SqlConnection (_connectionString);
         }
     }
 }
