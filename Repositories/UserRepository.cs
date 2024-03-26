@@ -26,7 +26,7 @@ namespace PlayerClassifier.WPF.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select COUNT(*) from [UsersPc] where Name=@username and [Password]=@password";
+                command.CommandText = "select COUNT(*) from [UsersPc] where Username=@username and [Password]=@password";
                 command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = credential.Password;
                 userCount = Convert.ToInt32(command.ExecuteScalar());
