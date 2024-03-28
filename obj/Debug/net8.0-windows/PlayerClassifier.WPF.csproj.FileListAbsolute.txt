@@ -33,3 +33,5 @@ C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGEN
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\PlayerClassifier.WPF.csproj.AssemblyReference.cache
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\PlayerCl.D7C3B2FD.Up2Date
+C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\View\SignUpView.g.cs
+C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\View\SignUpView.baml
