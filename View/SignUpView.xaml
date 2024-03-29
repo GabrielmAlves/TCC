@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
         xmlns:customcontrols="clr-namespace:PlayerClassifier.WPF.CustomControls"
         mc:Ignorable="d"
-        Title="SignUpView" Height="650" Width="800">
+        Title="SignUpView" Height="650" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
     <Grid>
 
 
@@ -53,16 +59,16 @@
                                 Cursor="Hand"
                                 Grid.Column="2"
                                 Click="btnMinimize_Click">
-                    <Button.Style>
-                         <Style TargetType="Button">
-                           <Setter Property="Background" Value="black"/>
-                              <Style.Triggers>
-                                 <Trigger Property="IsMouseOver" Value="True">
-                                   <Setter Property="Background" Value="black"/>
-                                 </Trigger>
-                               </Style.Triggers>
-                          </Style>
-                    </Button.Style>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="black"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
@@ -259,7 +265,7 @@
                             </Button.Template>
                         </Button>
                     </StackPanel>
-                    
+
                 </StackPanel>
 
                 <StackPanel Width="490"
@@ -273,14 +279,12 @@
                                 <ScaleTransform/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="89.795"/>
-                                <TranslateTransform X="-81.481" Y="-127.023"/>
+                                <TranslateTransform X="-81.481" Y="-80.023"/>
                             </TransformGroup>
                         </Image.RenderTransform>
                     </Image>
                 </StackPanel>
-
             </Grid>
-            
         </Border>
 
     </Grid>
