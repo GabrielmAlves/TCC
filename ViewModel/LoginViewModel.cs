@@ -50,6 +50,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ShowPasswordCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
         public ICommand RememberMeCommand { get; }
+        public ICommand DontHaveAccountCommand { get; }
 
         public LoginViewModel ()
         {
