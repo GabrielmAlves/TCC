@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
         xmlns:customcontrols="clr-namespace:PlayerClassifier.WPF.CustomControls"
+        xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
         mc:Ignorable="d"
         Title="SignUpView" Height="650" Width="800"
         WindowStyle="None"
@@ -13,6 +14,18 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <viewModel:SignUpViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
     <Grid>
 
 
@@ -131,7 +144,7 @@
                             HorizontalAlignment="Left"
                             Margin="0,25,0,0"/>
                     <TextBox x:Name="txtName"
-                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="13"
                             Background="Transparent"
                             FontWeight="Medium"   
@@ -175,7 +188,7 @@
                                Margin="0,15,0,0"/>
 
                     <TextBox x:Name="txtUserEmail"
-                           Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                           Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                            FontSize="13"
                            Background="Transparent"
                            FontWeight="Medium"   
@@ -211,7 +224,7 @@
                             Margin="0,15,0,0"/>
 
                     <TextBox x:Name="txtCargo"
-                           Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                           Text="{Binding Cargo, UpdateSourceTrigger=PropertyChanged}"
                            FontSize="13"
                            Background="Transparent"
                            FontWeight="Medium"   
@@ -234,7 +247,7 @@
                            TextWrapping="Wrap"/>
 
                         <Button x:Name="btnCreateAccount"
-                           Command="{Binding LoginCommand}"
+                           Command="{Binding CreateAccountCommand}"
                            BorderThickness="0"
                            Content="Criar conta"
                            Foreground="white"
