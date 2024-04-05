@@ -269,6 +269,7 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,-2,0,0">
                         <Button x:Name="btnRegistrar"
+                    Command="{Binding DontHaveAccountCommand}"            
                     Content="Registrar"
                     Background="white"
                     FontSize="12"

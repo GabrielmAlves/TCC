@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using PlayerClassifier.WPF.View;
+using PlayerClassifier.WPF.ViewModel;
 
 namespace PlayerClassifier.WPF
 {

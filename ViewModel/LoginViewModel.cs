@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PlayerClassifier.WPF.Repositories;
 using System.Security.Principal;
+using PlayerClassifier.WPF.View;
+using System.Windows;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -21,6 +23,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private string _errorMessage;
         private bool _isViewVisible = true; //para ver se a View é visível (se o login der certo, hide the view)
         private IUserRepository userRepository;
+        
 
         public string Username
         {
@@ -47,7 +50,7 @@ namespace PlayerClassifier.WPF.ViewModel
         //definindo os comandos 
 
         public ICommand LoginCommand { get; }
-        public ICommand ShowPasswordCommand { get; }
+        //public ICommand ShowPasswordCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
         public ICommand RememberMeCommand { get; }
         public ICommand DontHaveAccountCommand { get; }
@@ -56,6 +59,7 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand, CanExecuteDontHaveAccountCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         }
 
@@ -83,6 +87,26 @@ namespace PlayerClassifier.WPF.ViewModel
             {
                 ErrorMessage = "Usuário ou senha inválidos.";
             }
+        }
+
+        private bool CanExecuteDontHaveAccountCommand (object obj)
+        {
+            bool isClickable = true;
+            return isClickable;
+        }
+
+        private void ExecuteDontHaveAccountCommand (object obj)
+        {
+            var signUpView = new SignUpView();
+            signUpView.Show();
+            signUpView.IsVisibleChanged += (s, ev) =>
+            {
+                if (signUpView.IsVisible == false && signUpView.IsLoaded)
+                {
+                    signUpView.Show();
+                    Application.Current.MainWindow.Close();
+                }
+            };
         }
 
         private void ExecuteRecoverPasswordCommand (string username, string email)
