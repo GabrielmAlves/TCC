@@ -8,11 +8,11 @@ namespace PlayerClassifier.WPF.Model
 {
     public class UserModel
     {
-        public string id { get; set; }
-        public string userEmail { get; set; }
-        public string userName { get; set; }
-        public string userJob { get; set; }
-        public string password { get; set; }
-
+        public string Id { get; set; }
+        public string UserEmail { get; set; }
+        public string UserName { get; set; }
+        public string UserJob { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
     }
 }

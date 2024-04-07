@@ -8,13 +8,14 @@
         xmlns:view="clr-namespace:PlayerClassifier.WPF.View"
         mc:Ignorable="d"
         Title="Player Classifier" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                    <view:LoginView />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <TextBlock Text="{Binding CurrentUserAccount.displayName}"
+                   FontSize="30"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
     </Grid>
 </Window>

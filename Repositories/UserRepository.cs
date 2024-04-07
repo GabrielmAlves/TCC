@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -59,6 +60,34 @@ namespace PlayerClassifier.WPF.Repositories
         public UserModel GetById(int id)
         {
             throw new NotImplementedException();
+        }
+        public UserModel GetByUserName(string username)
+        {
+            UserModel user = null;
+            int userCount;
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select * from [UsersPc] where Username = @username";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = username;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserModel()
+                        {
+                            Id = reader[0].ToString(),
+                            UserName = reader[1].ToString(),
+                            Password = string.Empty,
+                            UserEmail = reader[3].ToString(),
+                        };
+                    }
+                }
+            }
+            return user;
         }
 
         public void Remove(int id)
