@@ -51,9 +51,9 @@
             BorderThickness="3">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                <GradientStop Color="#10801D" Offset="0"/>
-                <GradientStop Color="#10801D" Offset="0.5"/>
-                <GradientStop Color="#FFF" Offset="0.5"/>
+                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0.5"/>
+                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
             </LinearGradientBrush>
         </Border.Background>
 

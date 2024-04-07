@@ -6,16 +6,71 @@
         xmlns:local="clr-namespace:PlayerClassifier.WPF" 
         xmlns:viewmodels="clr-namespace:PlayerClassifier.WPF.ViewModel"
         xmlns:view="clr-namespace:PlayerClassifier.WPF.View"
+        xmlns:fonta="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="Player Classifier" Height="450" Width="800">
+        Title="Player Classifier" Height="450" Width="800"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
 
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBlock Text="{Binding CurrentUserAccount.displayName}"
-                   FontSize="30"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-    </Grid>
+
+    <Border CornerRadius="50"
+        BorderBrush="AntiqueWhite"
+        BorderThickness="3">
+     
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="50,0,0,50"
+                    Grid.Column="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0.2"/>
+                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Height="75"
+                                Margin="15,25,10,40">
+                        <Image Source="/Images/pc-image.png" Height="80" Width="80"/>
+                        <TextBlock Text="Player Classifier"
+                                   Foreground="#000"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,0"/>
+                    </StackPanel>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource primaryBackColor1}">
+                        <StackPanel Orientation="Horizontal">
+                            
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+                
+            </Border>
+
+            <Border CornerRadius="00,50,50,0"
+                    Grid.Column="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+    </Border>
+
 </Window>

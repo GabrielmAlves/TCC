@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "/0Y3mWfXkgfrJWr7/KDn1ldLR8tp3sQr691Fy8tR8ErdzQVMM/FuO6AJDINwP1RTHixYDp8EndrzGCH2iVROpg==",
+  "dgSpecHash": "t1GfDzjZCjfRJXUmEUA9W+A+HCeNkegmwrznloNjsBuO1caLqAydVbJr4GUopa0rQVBcRal52arei0t8LL+eOg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Usuario\\OneDrive\\Documentos\\Faculdade\\9 SEMESTRE\\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\\TCC\\PlayerClassifier\\PlayerClassifier.WPF\\PlayerClassifier.WPF.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Usuario\\.nuget\\packages\\fontawesome.sharp\\6.3.0\\fontawesome.sharp.6.3.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",

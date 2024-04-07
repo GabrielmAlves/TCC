@@ -19,6 +19,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms.Integration;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -61,7 +62,7 @@ namespace PlayerClassifier.WPF.CustomControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PlayerClassifier.WPF;component/customcontrols/bindablepasswordbox.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PlayerClassifier.WPF;V1.0.0.0;component/customcontrols/bindablepasswordbox.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\CustomControls\BindablePasswordBox.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

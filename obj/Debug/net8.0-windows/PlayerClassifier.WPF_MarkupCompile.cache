@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\App.xaml
-4122042003
+5274534710
 12008202646
 17-1065398365
 199-1002175398
-CustomControls\BindablePasswordBox.xaml;MainWindow.xaml;View\LoginView.xaml;View\SignUpView.xaml;
+CustomControls\BindablePasswordBox.xaml;MainWindow.xaml;Styles\UIColors.xaml;View\LoginView.xaml;View\SignUpView.xaml;
 
 False
 
