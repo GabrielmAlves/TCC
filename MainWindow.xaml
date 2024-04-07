@@ -11,7 +11,8 @@
         Title="Player Classifier" Height="450" Width="800"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <viewmodels:MainViewModel/>
@@ -55,7 +56,40 @@
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource primaryBackColor1}">
                         <StackPanel Orientation="Horizontal">
-                            
+                            <fonta:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource primaryBackColor1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fonta:IconImage Icon="Futbol" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Classificar" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource primaryBackColor1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fonta:IconImage Icon="Futbol" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Comparar" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource primaryBackColor1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fonta:IconImage Icon="ClockRotateLeft" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Histórico" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                Tag="{StaticResource primaryBackColor1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fonta:IconImage Icon="Binoculars" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Em observação" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
