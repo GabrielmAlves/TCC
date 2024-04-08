@@ -31,7 +31,7 @@ namespace PlayerClassifier.WPF.ViewModel
             {
                 {
                     CurrentUserAccount.userName = user.UserName;
-                    CurrentUserAccount.displayName = $"Bem-vindo de volta {user.UserName} ;)";
+                    CurrentUserAccount.displayName = $"{user.UserName}";
                     CurrentUserAccount.profilePicture = null;
                 };
             } else
