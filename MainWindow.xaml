@@ -8,11 +8,12 @@
         xmlns:view="clr-namespace:PlayerClassifier.WPF.View"
         xmlns:fonta="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="Player Classifier" Height="450" Width="800"
+        Title="Player Classifier" Height="480" Width="800"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown">
 
     <Window.DataContext>
         <viewmodels:MainViewModel/>
@@ -21,7 +22,7 @@
     <Border CornerRadius="50"
         BorderBrush="AntiqueWhite"
         BorderThickness="3">
-     
+
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -103,6 +104,26 @@
                         <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!--Control bar-->
+                        <RowDefinition Height="25"/>
+                        <!--Header-->
+                        <RowDefinition Height="35"/>
+                        <!--Content section-->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Control bar-->
+                    <StackPanel x:Name="pnlControlBar"
+                                Grid.Row="0"
+                                Orientation="Horizontal"
+                                FlowDirection="LeftToRight"
+                                Background="Transparent"
+                                Margin="0,0,5,0">
+                        
+                    </StackPanel>
+                </Grid>
             </Border>
         </Grid>
     </Border>
