@@ -54,6 +54,17 @@
                                    Margin="0,0,0,0"/>
                     </StackPanel>
 
+                    <StackPanel Orientation="Horizontal"
+                                Height="25"
+                                Margin="15,-55,10,0">
+                        <TextBlock Text="O que deseja fazer hoje?"
+                                   Foreground="#000"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource primaryBackColor1}">
                         <StackPanel Orientation="Horizontal">
@@ -118,11 +129,33 @@
                     <StackPanel x:Name="pnlControlBar"
                                 Grid.Row="0"
                                 Orientation="Horizontal"
-                                FlowDirection="LeftToRight"
+                                FlowDirection="RightToLeft"
                                 Background="Transparent"
-                                Margin="0,0,5,0">
-                        
+                                Margin="0,0,30,0"
+                                MouseEnter="pnlControlBar_MouseEnter">
+
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource primaryBackColor3}"
+                                Click="btnClose_Click">
+                            <fonta:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+
+                        <Button x:Name="btnMaximize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource primaryBackColor1}"
+                                Click="btnMaximize_Click">
+                            <fonta:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+
+                        <Button x:Name="btnMinimize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource primaryBackColor1}"
+                                Click="btnMinimize_Click">
+                            <fonta:IconImage Icon="WindowMinimize" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
                     </StackPanel>
+                   
                 </Grid>
             </Border>
         </Grid>

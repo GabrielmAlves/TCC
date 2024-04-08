@@ -4,5 +4,5 @@
 
     <Color x:Key="primaryBackColor1">#10801D</Color>
     <Color x:Key="primaryBackColor2">#FFF</Color>
-
+    <Color x:Key="primaryBackColor3">red</Color>
 </ResourceDictionary>
