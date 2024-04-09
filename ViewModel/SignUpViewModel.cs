@@ -10,6 +10,8 @@ using System.Windows.Input;
 using PlayerClassifier.WPF.Repositories;
 using System.Text.RegularExpressions;
 using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security.Principal;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -76,8 +78,8 @@ namespace PlayerClassifier.WPF.ViewModel
         private bool CanExecuteAccountCommand(object parameter)
         {
             bool isFieldsOk;
-
-            if (string.IsNullOrEmpty(Name) || Name.All(c => char.IsLetter(c) && !char.IsPunctuation(c)) || string.IsNullOrEmpty(UserName) || Password == null || Password.Length < 8 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Cargo) || Cargo.All(c => char.IsLetter(c) && !char.IsPunctuation(c)))
+            // || Name.All(c => char.IsLetter(c) && !char.IsPunctuation(c)) || string.IsNullOrEmpty(UserName) || Password == null || Password.Length < 8 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Cargo) || Cargo.All(c => char.IsLetter(c) && !char.IsPunctuation(c))
+            if (string.IsNullOrEmpty(Name))
             {
                 isFieldsOk = false;
                 return isFieldsOk;
@@ -89,7 +91,17 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private void ExecuteCreateAccountCommand(object parameter)
         {
-
+            var isValidUser = _userRepository.Add(new System.Net.NetworkCredential(Name,Password), UserName, Email, Cargo);
+            if (isValidUser)
+            {
+                //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(UserName), null);
+                Application.Current.Shutdown();
+                //IsViewVisible = false; //login bem sucedido, esconde a tela 
+            }
+            else
+            {
+                ErrorMessage = "Algo de errado ocorreu.";
+            }
         }
 
         private bool isValidEmail(string email)

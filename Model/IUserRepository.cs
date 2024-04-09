@@ -10,7 +10,7 @@ namespace PlayerClassifier.WPF.Model
     public interface IUserRepository
     {
         bool AuthenticateUser (NetworkCredential credential);
-        void Add(UserModel userModel);
+        bool Add(NetworkCredential credential, string userName, string userEmail, string cargo);
         void Edit (UserModel userModel);
         void Remove(int id);
         UserModel GetById (int id);
