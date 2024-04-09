@@ -6,9 +6,9 @@
     <Style x:Key="menuButton" TargetType="RadioButton">
         <Setter Property="Height" Value="50"/>
         <Setter Property="Margin" Value="-5,0,0,5"/>
-        <Setter Property="Background" Value="#000"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#000"/>
-        <Setter Property="BorderBrush" Value="#fff"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
@@ -25,12 +25,12 @@
             <!--Hover-->
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Margin" Value="0,0,0,5"/>
-                <Setter Property="Background" Value="red"/>
-                <Setter Property="Foreground" Value="red"/>
+                <Setter Property="Background" Value="#FFF"/>
+                <Setter Property="Foreground" Value="#FFF"/>
                 <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
             </Trigger>
             <!--Activated button-->
-            <Trigger Property="IsMouseOver" Value="True">
+            <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Margin" Value="0,0,0,5"/>
                 <Setter Property="Background" Value="#FFF"/>
                 <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
@@ -62,7 +62,7 @@
     <Style x:Key="controlButton" TargetType="Button">
         <Setter Property="Width" Value="35"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#000"/>
+        <Setter Property="Foreground" Value="#FFF"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
