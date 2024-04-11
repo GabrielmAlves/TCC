@@ -62,7 +62,7 @@
     <Style x:Key="controlButton" TargetType="Button">
         <Setter Property="Width" Value="35"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#FFF"/>
+        <Setter Property="Foreground" Value="#000"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
