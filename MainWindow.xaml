@@ -19,6 +19,12 @@
         <viewmodels:MainViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+            <view:HomeView/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Border CornerRadius="50"
         BorderBrush="AntiqueWhite"
         BorderThickness="3">
@@ -66,7 +72,9 @@
                     </StackPanel>
                     
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource primaryBackColor1}">
+                                 Tag="{StaticResource primaryBackColor1}"
+                                 IsChecked="True"
+                                 Command="{Binding ShowHomeViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
@@ -74,7 +82,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource primaryBackColor1}">
+                                 Tag="{StaticResource primaryBackColor1}"
+                                 Command="{Binding ShowClassifyViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="Futbol" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Classificar" Style="{StaticResource menuButtonText}"/>
@@ -82,7 +91,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource primaryBackColor1}">
+                                 Tag="{StaticResource primaryBackColor1}"
+                                 Command="{Binding ShowCompareViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="Futbol" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Comparar" Style="{StaticResource menuButtonText}"/>
@@ -90,7 +100,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource primaryBackColor1}">
+                                 Tag="{StaticResource primaryBackColor1}"
+                                 Command="{Binding ShowHistoryViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="ClockRotateLeft" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Histórico" Style="{StaticResource menuButtonText}"/>
@@ -98,7 +109,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                Tag="{StaticResource primaryBackColor1}">
+                                Tag="{StaticResource primaryBackColor1}"
+                                 Command="{Binding ShowObservationViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="Binoculars" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Em observação" Style="{StaticResource menuButtonText}"/>
@@ -166,12 +178,12 @@
                         <StackPanel Grid.Column="0"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
-                            <fonta:IconImage Icon="Home"
+                            <fonta:IconImage Icon="{Binding Icon}"
                                              Height="20"
                                              Width="20"
                                              Foreground="#000"
                                              Margin="35,0,10,0"/>
-                            <TextBlock Text="Home Page"
+                            <TextBlock Text="{Binding ChildViewName}"
                                        Foreground="#000"
                                        FontSize="16"
                                        FontFamily="Montserrat"
@@ -207,6 +219,11 @@
                             </Ellipse>
                         </StackPanel>
                     </Grid>
+                    
+                    <!--views filhas-->
+                    <ContentControl Content="{Binding CurrentChildView}"
+                                    Grid.Row="2"
+                                    Margin="25"/>
                 </Grid>
             </Border>
         </Grid>

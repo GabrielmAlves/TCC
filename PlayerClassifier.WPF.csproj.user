@@ -10,7 +10,22 @@
     <Compile Update="CustomControls\BindablePasswordBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ClassifyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\CompareView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\HistoryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\HomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ObservationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\SignUpView.xaml.cs">
@@ -30,7 +45,22 @@
     <Page Update="Styles\UIColors.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\ClassifyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\CompareView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HistoryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ObservationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SignUpView.xaml">
