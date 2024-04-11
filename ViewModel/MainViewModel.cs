@@ -119,21 +119,21 @@ namespace PlayerClassifier.WPF.ViewModel
             Icon = IconChar.Home;
         }
 
-        private void loadCurrentUserData()
-        {
-            var user = userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
-            if (user != null)
-            {
-                {
-                    CurrentUserAccount.userName = user.UserName;
-                    CurrentUserAccount.displayName = $"{user.UserName}";
-                    CurrentUserAccount.profilePicture = null;
-                };
-            } else
-            {
-                CurrentUserAccount.displayName = "Usuário inválido.";
-                Application.Current.Shutdown();
-            }
-        }
+        //private void loadCurrentUserData()
+        //{
+        //    var user = userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
+        //    if (user != null)
+        //    {
+        //        {
+        //            CurrentUserAccount.userName = user.UserName;
+        //            CurrentUserAccount.displayName = $"{user.UserName}";
+        //            CurrentUserAccount.profilePicture = null;
+        //        };
+        //    } else
+        //    {
+        //        CurrentUserAccount.displayName = "Usuário inválido.";
+        //        Application.Current.Shutdown();
+        //    }
+        //}
         }
     }
