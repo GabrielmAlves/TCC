@@ -99,7 +99,7 @@ namespace PlayerClassifier.WPF.ViewModel
             }
             else
             {
-                ErrorMessage = "Algo de errado ocorreu.";
+                ErrorMessage = "Informações inválidas.";
             }
         }
 
