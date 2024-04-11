@@ -36,7 +36,7 @@ namespace PlayerClassifier.WPF.ViewModel
                 };
             } else
             {
-                CurrentUserAccount.displayName = "Invalid user, not logged in.";
+                CurrentUserAccount.displayName = "Usuário inválido.";
                 Application.Current.Shutdown();
             }
         }

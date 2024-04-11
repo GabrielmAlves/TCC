@@ -14,23 +14,29 @@ namespace PlayerClassifier.WPF.Repositories
     {
         public bool Add(NetworkCredential credential, string userName, string userEmail, string cargo)
         {
-            bool valid;
-
-            using(var connection = GetConnection())
-            using (var command = new SqlCommand())
+            try
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "INSERT INTO [UsersPc] (Username, Password, Name, Cargo, Email) VALUES (@username, @password, @name, @userjob, @useremail)";
-                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = userName;
-                command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = credential.Password;
-                command.Parameters.Add("@name", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@userjob", System.Data.SqlDbType.NVarChar).Value = cargo;
-                command.Parameters.Add("@useremail", System.Data.SqlDbType.NVarChar).Value = userEmail;
-
-                command.ExecuteNonQuery();
+                using (var connection = GetConnection())
+                using (var command = new SqlCommand())
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "INSERT INTO UsersPc (Username, Password, Name, Cargo, Email) " + "VALUES (@username, @password, @name, @userjob, @useremail)";
+                    command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = userName;
+                    command.Parameters.Add("@password", System.Data.SqlDbType.NVarChar).Value = credential.Password;
+                    command.Parameters.Add("@name", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
+                    command.Parameters.Add("@userjob", System.Data.SqlDbType.NVarChar).Value = cargo;
+                    command.Parameters.Add("@useremail", System.Data.SqlDbType.NVarChar).Value = userEmail;
+                    command.ExecuteNonQuery();
+                    return true;
+                }
             }
-            return true;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
         }
 
         public bool AuthenticateUser(NetworkCredential credential) //esse método estabelece uma conexão com o SQL Server e faz uma query. Se bem sucedida, o usuário é válido
