@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Security.Principal;
+using PlayerClassifier.WPF.View;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -94,9 +95,7 @@ namespace PlayerClassifier.WPF.ViewModel
             var isValidUser = _userRepository.Add(new System.Net.NetworkCredential(Name,Password), UserName, Email, Cargo);
             if (isValidUser)
             {
-                //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(UserName), null);
-                Application.Current.Shutdown();
-                //IsViewVisible = false; //login bem sucedido, esconde a tela 
+                IsViewVisible = false;
             }
             else
             {

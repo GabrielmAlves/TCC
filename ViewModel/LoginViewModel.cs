@@ -10,6 +10,7 @@ using PlayerClassifier.WPF.Repositories;
 using System.Security.Principal;
 using PlayerClassifier.WPF.View;
 using System.Windows;
+using FontAwesome.Sharp;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -23,8 +24,9 @@ namespace PlayerClassifier.WPF.ViewModel
         private string _errorMessage;
         private bool _isViewVisible = true; //para ver se a View é visível (se o login der certo, hide the view)
         private IUserRepository userRepository;
-        
-
+        //private ViewModelBase _currentView;
+        //private string _childViewName;
+        //private IconChar _viewIcon;
         public string Username
         {
             get { return _username; }
@@ -47,6 +49,22 @@ namespace PlayerClassifier.WPF.ViewModel
             set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } 
             }
 
+        //public ViewModelBase CurrentView
+        //{
+        //    get { return _currentView; }
+        //    set { _currentView = value; OnPropertyChanged(nameof(CurrentView)); }
+        //}
+        //public string ChildViewName
+        //{
+        //    get { return _childViewName; }
+        //    set { _childViewName = value; OnPropertyChanged(nameof(ChildViewName)); }
+        //}
+        //public IconChar Icon
+        //{
+        //    get { return _viewIcon; }
+        //    set { _viewIcon = value; OnPropertyChanged(nameof(Icon)); }
+        //}
+
         //definindo os comandos 
 
         public ICommand LoginCommand { get; }
@@ -54,14 +72,23 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand RecoverPasswordCommand { get; }
         public ICommand RememberMeCommand { get; }
         public ICommand DontHaveAccountCommand { get; }
-
+        //public ICommand ShowRegisterViewCommand { get; }
         public LoginViewModel ()
         {
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
             DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+            //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
         }
+
+        //private void ExecuteShowRegisterViewCommand(object obj)
+        //{
+        //    CurrentView = new RegisterViewModel();
+        //    ChildViewName = "Em observação";
+        //    Icon = IconChar.Binoculars;
+        //}
 
         private bool CanExecuteLoginCommand (object obj)
         {
@@ -82,25 +109,17 @@ namespace PlayerClassifier.WPF.ViewModel
             if (isValidUser)
             {
                 Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-                IsViewVisible = false; //login bem sucedido, esconde a tela 
+                IsViewVisible = false; //login bem sucedido, esconde a tela
             } else
             {
                 ErrorMessage = "Usuário ou senha inválidos.";
             }
         }
 
-        private void ExecuteDontHaveAccountCommand (object obj)
+        private void ExecuteDontHaveAccountCommand(object obj)
         {
             var signUpView = new SignUpView();
             signUpView.Show();
-            signUpView.IsVisibleChanged += (s, ev) =>
-            {
-                if (signUpView.IsVisible == false && signUpView.IsLoaded)
-                {
-                    signUpView.Show();
-                    Application.Current.MainWindow.Close();
-                }
-            };
         }
 
         private void ExecuteRecoverPasswordCommand (string username, string email)

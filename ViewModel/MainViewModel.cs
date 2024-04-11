@@ -81,7 +81,7 @@ namespace PlayerClassifier.WPF.ViewModel
 
             ExecuteShowHomeViewCommand(null);
 
-            loadCurrentUserData();
+            //loadCurrentUserData();
         }
 
         private void ExecuteShowObservationViewCommand(object obj)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
+        xmlns:view="clr-namespace:PlayerClassifier.WPF.View"
         xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel" 
         xmlns:customcontrols="clr-namespace:PlayerClassifier.WPF.CustomControls"
         mc:Ignorable="d"
@@ -37,6 +38,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--<DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
+            <view:RegisterView/>
+        </DataTemplate>-->
     </Window.Resources>
 
     <Window.Visibility>
@@ -300,7 +305,12 @@
                     </Image.RenderTransform>
                 </Image>
             </StackPanel>
+            <!--<ContentControl Content="{Binding CurrentView}"
+                Grid.Row="2"
+                Margin="-50,-77,-50,-40"/>-->
         </Grid>
+
+        
 
     </Border>
 
