@@ -23,6 +23,22 @@
         <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
             <view:HomeView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ClassifyPlayerViewModel}">
+            <view:ClassifyView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:CompareViewModel}">
+            <view:CompareView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:HistoryViewModel}">
+            <view:HistoryView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ObservationViewModel}">
+            <view:ObservationView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Border CornerRadius="50"

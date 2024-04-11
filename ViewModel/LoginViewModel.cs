@@ -59,7 +59,7 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand, CanExecuteDontHaveAccountCommand);
+            DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         }
 
@@ -67,7 +67,7 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             bool validData;
             
-            if (string.IsNullOrEmpty(Username) || Username.Length < 3 || Password == null || Password.Length < 3)
+            if (string.IsNullOrEmpty(Username) || Username.Length < 1 || Password == null || Password.Length < 3)
             {
                 validData = false;
             }
@@ -87,12 +87,6 @@ namespace PlayerClassifier.WPF.ViewModel
             {
                 ErrorMessage = "Usuário ou senha inválidos.";
             }
-        }
-
-        private bool CanExecuteDontHaveAccountCommand (object obj)
-        {
-            bool isClickable = true;
-            return isClickable;
         }
 
         private void ExecuteDontHaveAccountCommand (object obj)
