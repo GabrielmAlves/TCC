@@ -65,7 +65,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ShowCompareViewCommand { get; }
         public ICommand ShowHistoryViewCommand { get; }
         public ICommand ShowObservationViewCommand { get; }
-
+        //public ICommand ShowProfileViewCommand { get; }
 
 
         public MainViewModel()
@@ -78,11 +78,18 @@ namespace PlayerClassifier.WPF.ViewModel
             ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
             ShowHistoryViewCommand = new ViewModelCommand(ExecuteShowHistoryViewCommand);
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
-
+            //ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
             ExecuteShowHomeViewCommand(null);
 
             //loadCurrentUserData();
         }
+
+        //private void ExecuteShowProfileViewCommand(object obj)
+        //{
+        //    CurrentChildView = new ProfileViewModel();
+        //    ChildViewName = "Seu perfil";
+        //    Icon = IconChar.UserCircle;
+        //}
 
         private void ExecuteShowObservationViewCommand(object obj)
         {
@@ -119,21 +126,5 @@ namespace PlayerClassifier.WPF.ViewModel
             Icon = IconChar.Home;
         }
 
-        //private void loadCurrentUserData()
-        //{
-        //    var user = userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
-        //    if (user != null)
-        //    {
-        //        {
-        //            CurrentUserAccount.userName = user.UserName;
-        //            CurrentUserAccount.displayName = $"{user.UserName}";
-        //            CurrentUserAccount.profilePicture = null;
-        //        };
-        //    } else
-        //    {
-        //        CurrentUserAccount.displayName = "Usuário inválido.";
-        //        Application.Current.Shutdown();
-        //    }
-        //}
         }
     }

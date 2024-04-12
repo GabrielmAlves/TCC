@@ -9,6 +9,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="550">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.DataContext>
@@ -27,13 +30,12 @@
 
 
             <Grid>
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <!--Control bar-->
-                        <RowDefinition Height="25"/>
+                        <!--<RowDefinition Height="0"/>-->
                         <!--Header-->
-                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="0"/>
                         <!--Content section-->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -50,6 +52,19 @@
                                    HorizontalAlignment="Center"
                                    />
                     </StackPanel>
+                    <StackPanel Width="300"
+                                Grid.Row="1"
+                                Orientation="Vertical"
+                                Margin="-2,100,300,-2"
+                                FlowDirection="LeftToRight">
+                            <TextBlock Text="Últimas classificações"
+                                FontWeight="Medium"
+                                FontFamily="Montserrat"
+                                FontSize="18"
+                                HorizontalAlignment="Left"
+                                Width="220"
+                                Margin="10,10,10,10"/>
+                        </StackPanel>
                 </Grid>
             </Grid>
         </Border>

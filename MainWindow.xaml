@@ -39,6 +39,10 @@
         <DataTemplate DataType="{x:Type viewmodels:ObservationViewModel}">
             <view:ObservationView/>
         </DataTemplate>
+        
+        <!--<DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+            <view:ProfileView/>
+        </DataTemplate>-->
     </Window.Resources>
 
     <Border CornerRadius="50"
@@ -212,10 +216,53 @@
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
-                            <Button Style="{StaticResource iconButton}"
+                            <!--<Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource primaryBackColor1}">
                                 <fonta:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}"
                                                  Height="12" Width="12"/>
+                            </Button>-->
+                            <!--<Menu>
+                                <MenuItem Header="Profile"></MenuItem>
+                            </Menu>-->
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource primaryBackColor1}">
+                                <Grid>
+                                    <fonta:IconImage Icon="AngleDown" MouseDown="IconImage_MouseDown" Style="{StaticResource iconButtonIcon}" Height="12" Width="12"/>
+                                    <Popup x:Name="popup" AllowsTransparency="True" PlacementTarget="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" Placement="Bottom">
+                                        <Menu Background="Transparent" BorderThickness="0">
+                                            <Menu.Resources>
+                                                <Style TargetType="MenuItem">
+                                                    <Setter Property="FontSize" Value="16" />
+                                                    <Setter Property="Foreground" Value="#FFF" />
+                                                    <Setter Property="Padding" Value="10" />
+                                                    <Setter Property="Background" Value="Green" />
+                                                    <!-- Aumentar o tamanho -->
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="MenuItem">
+                                                                <Border Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            CornerRadius="20">
+                                                                    <!-- Aplicar CornerRadius -->
+                                                                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                             Content="{TemplateBinding Header}" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Menu.Resources>
+                                            <Menu.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel Orientation="Vertical" />
+                                                </ItemsPanelTemplate>
+                                            </Menu.ItemsPanel>
+                                            <MenuItem Header="Perfil" Click="MenuItem_Click" Cursor="Hand"/>
+                                            <MenuItem Header="Sair" Click="MenuItem_Click" Cursor="Hand"/>
+                                        </Menu>
+                                    </Popup>
+                                </Grid>
                             </Button>
 
                             <TextBlock Text="{Binding CurrentUserAccount.displayName}"

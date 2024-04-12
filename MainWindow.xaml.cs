@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Windows.Interop;
+using System.Windows.Controls.Primitives;
 
 namespace PlayerClassifier.WPF
 {
@@ -57,6 +58,33 @@ namespace PlayerClassifier.WPF
                 this.WindowState = WindowState.Maximized;
             else 
                 this.WindowState = WindowState.Normal;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                MessageBox.Show($"Você selecionou: {menuItem.Header}");
+                // Feche o Popup após a seleção de um item
+                popup.IsOpen = false;
+            }
+        }
+
+        private void IconImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (popup.IsOpen)
+            {
+                // Se o Popup estiver aberto, fecha-o
+                popup.IsOpen = false;
+            }
+            else
+            {
+                // Se o Popup estiver fechado, abre-o
+                popup.IsOpen = true;
+                // Captura o foco para o Popup para lidar com o teclado
+                popup.Focus();
+            }
         }
     }
 }
