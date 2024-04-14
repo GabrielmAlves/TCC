@@ -30,7 +30,8 @@ namespace PlayerClassifier.WPF.ViewModel
                 {
                     CurrentUserAccount.userName = user.UserName;
                     CurrentUserAccount.displayName = $"Bem-vindo {user.UserName}!";
-                    CurrentUserAccount.profilePicture = null;
+                    CurrentUserAccount.cargo = user.UserJob;
+
                 };
             }
             else

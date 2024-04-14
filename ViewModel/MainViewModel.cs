@@ -72,7 +72,7 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-
+            //Console.WriteLine(CurrentUserAccount.cargo);
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowClassifyViewCommand = new ViewModelCommand(ExecuteShowClassifyViewCommand);
             ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
@@ -80,8 +80,6 @@ namespace PlayerClassifier.WPF.ViewModel
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
             ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
             ExecuteShowHomeViewCommand(null);
-
-            //loadCurrentUserData();
         }
 
         private void ExecuteShowProfileViewCommand(object obj)

@@ -10,6 +10,10 @@ using System.Windows.Controls;
 using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
+using System.Drawing;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -145,6 +149,7 @@ namespace PlayerClassifier.WPF.Repositories
                             UserName = reader[1].ToString(),
                             Password = string.Empty,
                             UserEmail = reader[3].ToString(),
+                            UserJob = reader[4].ToString(),
                         };
                     }
                 }

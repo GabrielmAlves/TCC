@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using PlayerClassifier.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,7 +32,7 @@ namespace PlayerClassifier.WPF.View
         private void btnSelectPicture_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Arquivos csv | *.png;*.jpg;*.jpeg";
+            openFileDialog.Filter = "Imagens (png, jpg, jpeg) | *.png;*.jpg;*.jpeg";
             bool? fileOpened = openFileDialog.ShowDialog();
 
             if (fileOpened == true)
@@ -39,9 +40,12 @@ namespace PlayerClassifier.WPF.View
                 string path = openFileDialog.FileName;
                 string fileName = openFileDialog.SafeFileName;
                 imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+                var image = imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+                var profileBinding = new ProfileViewModel();
+                profileBinding.SetProfilePictureFromImageSource(image);
             } else
             {
-
+                Console.WriteLine("erro");
             }
         }
     }
