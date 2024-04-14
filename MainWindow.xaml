@@ -40,9 +40,9 @@
             <view:ObservationView/>
         </DataTemplate>
         
-        <!--<DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
             <view:ProfileView/>
-        </DataTemplate>-->
+        </DataTemplate>
     </Window.Resources>
 
     <Border CornerRadius="50"
@@ -258,7 +258,7 @@
                                                     <VirtualizingStackPanel Orientation="Vertical" />
                                                 </ItemsPanelTemplate>
                                             </Menu.ItemsPanel>
-                                            <MenuItem Header="Perfil" Click="MenuItem_Click" Cursor="Hand" HorizontalAlignment="Center"/>
+                                            <MenuItem Header="Perfil" Click="MenuItem_Click" Cursor="Hand" Command="{Binding ShowProfileViewCommand}" HorizontalAlignment="Center"/>
                                             <MenuItem Header="Sair" Click="MenuItem_Click" Cursor="Hand" HorizontalAlignment="Center"/>
                                         </Menu>
                                     </Popup>

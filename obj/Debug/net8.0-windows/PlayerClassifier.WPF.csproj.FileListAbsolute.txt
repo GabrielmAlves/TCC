@@ -56,3 +56,5 @@ C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGEN
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\bin\Debug\net8.0-windows\MimeKit.dll
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
 C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\View\ProfileView.g.cs
+C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\obj\Debug\net8.0-windows\View\ProfileView.baml

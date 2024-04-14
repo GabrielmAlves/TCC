@@ -63,12 +63,12 @@ namespace PlayerClassifier.WPF
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                MessageBox.Show($"Você selecionou: {menuItem.Header}");
-                // Feche o Popup após a seleção de um item
-                popup.IsOpen = false;
-            }
+            //if (menuItem != null)
+            //{
+            //    MessageBox.Show($"Você selecionou: {menuItem.Header}");
+            //    // Feche o Popup após a seleção de um item
+            //    popup.IsOpen = false;
+            //}
         }
 
         private void IconImage_MouseDown(object sender, MouseButtonEventArgs e)

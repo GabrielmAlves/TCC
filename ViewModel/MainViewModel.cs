@@ -65,7 +65,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ShowCompareViewCommand { get; }
         public ICommand ShowHistoryViewCommand { get; }
         public ICommand ShowObservationViewCommand { get; }
-        //public ICommand ShowProfileViewCommand { get; }
+        public ICommand ShowProfileViewCommand { get; }
 
 
         public MainViewModel()
@@ -78,18 +78,18 @@ namespace PlayerClassifier.WPF.ViewModel
             ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
             ShowHistoryViewCommand = new ViewModelCommand(ExecuteShowHistoryViewCommand);
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
-            //ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
+            ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
             ExecuteShowHomeViewCommand(null);
 
             //loadCurrentUserData();
         }
 
-        //private void ExecuteShowProfileViewCommand(object obj)
-        //{
-        //    CurrentChildView = new ProfileViewModel();
-        //    ChildViewName = "Seu perfil";
-        //    Icon = IconChar.UserCircle;
-        //}
+        private void ExecuteShowProfileViewCommand(object obj)
+        {
+            CurrentChildView = new ProfileViewModel();
+            ChildViewName = "Seu perfil";
+            Icon = IconChar.UserCircle;
+        }
 
         private void ExecuteShowObservationViewCommand(object obj)
         {
