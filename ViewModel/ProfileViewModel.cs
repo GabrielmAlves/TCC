@@ -20,7 +20,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private IUserRepository _userRepository;
         private UserModel _currentUser;
         private string _userCargo;
-        public bool IsTextBoxEnabled { get; set; }
+        //public bool IsTextBoxEnabled { get; set; }
         public UserModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string UserCargo
         {
@@ -32,7 +32,7 @@ namespace PlayerClassifier.WPF.ViewModel
             _userRepository = new UserRepository();
             CurrentUser = new UserModel();
             loadCargo();
-            IsTextBoxEnabled = false;
+            //IsTextBoxEnabled = false;
         }
         private void loadCargo()
         {
@@ -49,11 +49,11 @@ namespace PlayerClassifier.WPF.ViewModel
                 Application.Current.Shutdown();
             }
         }
-        public void ToggleEditMode()
-        {
-            IsTextBoxEnabled = !IsTextBoxEnabled;
-            OnPropertyChanged(nameof(IsTextBoxEnabled)); // Notifique a mudança
-        }
+
+        //public void btnEditButton_Click()
+        //{
+        //    IsTextBoxEnabled = true;
+        //}
         public void SetProfilePictureFromImageSource(ImageSource imageSource)
         {
             if (imageSource == null)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Org.BouncyCastle.Tls;
 using PlayerClassifier.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,11 @@ namespace PlayerClassifier.WPF.View
     /// </summary>
     public partial class ProfileView : UserControl
     {
+        public bool IsTextBoxEnabled { get; set; }
         public ProfileView()
         {
             InitializeComponent();
+            txtCargo.IsEnabled = false;
         }
 
         private void btnSelectPicture_Click(object sender, RoutedEventArgs e)
@@ -47,6 +50,23 @@ namespace PlayerClassifier.WPF.View
             {
                 Console.WriteLine("erro");
             }
+        }
+
+        private void btnEditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtCargo.IsEnabled)
+            {
+                txtCargo.IsEnabled = false;
+            }
+            else
+            {
+                txtCargo.IsEnabled = true;
+            }
+        }
+
+        private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
