@@ -15,7 +15,7 @@
         </Grid.DataContext>
 
         <Border CornerRadius="10"
-                BorderBrush="AntiqueWhite"
+                BorderBrush="Transparent"
                 BorderThickness="3">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
