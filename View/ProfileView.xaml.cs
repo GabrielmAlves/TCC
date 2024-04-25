@@ -35,14 +35,14 @@ namespace PlayerClassifier.WPF.View
         private void btnSelectPicture_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Imagens (png, jpg, jpeg) | *.png;*.jpg;*.jpeg";
+            openFileDialog.Filter = "Imagens png | *.png";
             bool? fileOpened = openFileDialog.ShowDialog();
 
             if (fileOpened == true)
             {
                 string path = openFileDialog.FileName;
                 string fileName = openFileDialog.SafeFileName;
-                imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+                //imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var image = imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var profileBinding = new ProfileViewModel();
                 profileBinding.SetProfilePictureFromImageSource(image);

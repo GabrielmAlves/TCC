@@ -14,5 +14,6 @@ namespace PlayerClassifier.WPF.Model
         public string UserJob { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        //public byte[] ProfilePicture { get; set; }
     }
 }

@@ -12,26 +12,34 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Drawing;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
     public class ProfileViewModel : ViewModelBase
     {
         private IUserRepository _userRepository;
-        private UserModel _currentUser;
+        private UserAccountModel _currentUser;
         private string _userCargo;
+        private byte[] _profilePicture;
         //public bool IsTextBoxEnabled { get; set; }
-        public UserModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
+        public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string UserCargo
         {
             get { return _userCargo; }
             set { _userCargo = value; OnPropertyChanged(nameof(UserCargo)); }
         }
+        public byte[] ProfilePicture
+        {
+            get { return _profilePicture; }
+            set { _profilePicture = value; OnPropertyChanged(nameof(_profilePicture)); }
+        }
         public ProfileViewModel()
         {
             _userRepository = new UserRepository();
-            CurrentUser = new UserModel();
+            CurrentUser = new UserAccountModel();
             loadCargo();
+            loadProfilePicture();
             //IsTextBoxEnabled = false;
         }
         private void loadCargo()
@@ -50,23 +58,55 @@ namespace PlayerClassifier.WPF.ViewModel
             }
         }
 
-        //public void btnEditButton_Click()
-        //{
-        //    IsTextBoxEnabled = true;
-        //}
+        private void loadProfilePicture()
+        {
+            var user = _userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
+            if (user != null)
+            {
+                {
+                    ProfilePicture = CurrentUser.profilePicture;
+                };
+            }
+            else
+            {
+                //CurrentUser.displayName = "Usuário inválido.";
+                Application.Current.Shutdown();
+            }
+        }
         public void SetProfilePictureFromImageSource(ImageSource imageSource)
         {
             if (imageSource == null)
                 return;
 
-            // Converter o ImageSource em Bitmap
+            string imageFormat = GetImageFileExtension(imageSource);
             Bitmap bitmap = ImageSourceToBitmap(imageSource);
-
-            // Atribuir o Bitmap ao campo profilePicture do CurrentUser
-            //CurrentUser.profilePicture = bitmap;
-
-            // Notificar a mudança na propriedade do CurrentUser (se necessário)
+            byte[] imageBytes = bitmapToBytes(bitmap, imageFormat);
+            CurrentUser.profilePicture = imageBytes;
             OnPropertyChanged(nameof(CurrentUser));
+            _userRepository.AddProfilePicture(imageBytes, CurrentUser, Thread.CurrentPrincipal.Identity.Name);
+        }
+
+        private byte[] bitmapToBytes(Bitmap bitmap, string imageFormatExtension)
+        {
+            ImageFormat imageFormat = null;
+
+            switch (imageFormatExtension.ToLower())
+            {
+                case ".png":
+                    imageFormat = ImageFormat.Png;
+                    break;
+                case ".jpg":
+                case ".jpeg":
+                    throw new ArgumentException("Formato de imagem inválido");
+                default:
+                    throw new ArgumentException("Formato de imagem inválido");
+            }
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                bitmap.Save(stream, imageFormat);
+                return stream.ToArray();
+            }
         }
 
         private Bitmap ImageSourceToBitmap(ImageSource imageSource)
@@ -87,7 +127,6 @@ namespace PlayerClassifier.WPF.ViewModel
                     }
                 }
             }
-
             return bitmap;
         }
 
@@ -95,7 +134,6 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             if (imageSource is BitmapSource bitmapSource)
             {
-                // Obter o formato do arquivo com base na extensão da imagem (se disponível)
                 string fileExtension = GetImageFileExtension(imageSource);
 
                 if (!string.IsNullOrEmpty(fileExtension))
@@ -107,7 +145,6 @@ namespace PlayerClassifier.WPF.ViewModel
                         case ".jpg":
                         case ".jpeg":
                             return new JpegBitmapEncoder();
-                        // Adicione outros formatos de imagem conforme necessário
                         default:
                             return null;
                     }
@@ -124,7 +161,6 @@ namespace PlayerClassifier.WPF.ViewModel
                 string filePath = bitmapImage.UriSource.AbsolutePath;
                 return Path.GetExtension(filePath);
             }
-
             return null;
         }
     }

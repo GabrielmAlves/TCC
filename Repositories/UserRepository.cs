@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -160,6 +161,32 @@ namespace PlayerClassifier.WPF.Repositories
         public void Remove(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool AddProfilePicture(byte[] profileImage, UserAccountModel user, string userInfo)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = "UPDATE UsersPc SET ProfilePicture = @ProfilePicture WHERE Username = @userinfo";
+                command.CommandText = sql;
+                command.Parameters.Add("@userinfo", System.Data.SqlDbType.NVarChar).Value = userInfo;
+                command.Parameters.AddWithValue("@ProfilePicture", profileImage);
+                command.Parameters.AddWithValue("@Username", user.profilePicture); // Utilizar o Username do usuário
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public void sendEmail(string userEmail)

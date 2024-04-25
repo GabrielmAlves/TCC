@@ -11,7 +11,7 @@ namespace PlayerClassifier.WPF.Model
     {
         public string userName {get; set;}
         public string displayName { get; set;}
-        public Bitmap profilePicture { get; set;}
+        public byte[] profilePicture { get; set;}
         public string cargo { get; set;}
     }
 }
