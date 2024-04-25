@@ -119,9 +119,40 @@ namespace PlayerClassifier.WPF.Repositories
             throw new NotImplementedException();
         }
 
-        public UserModel GetByEmail(string email)
+        public UserModel GetProfilePicture(string user)
         {
-            throw new NotImplementedException();
+            UserModel userInfo = null;
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT ProfilePicture FROM UsersPc WHERE Username = @username";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = user;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        userInfo = new UserModel()
+                        {
+                            ProfilePicture = null  // Inicializar ProfilePicture como null por padrão
+                        };
+
+                        // Verificar se ProfilePicture não é DBNull antes de atribuir
+                        if (!(reader["ProfilePicture"] is DBNull))
+                        {
+                            long byteLength = reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, null, 0, 0); // Obter o comprimento do array de bytes
+                            byte[] profilePictureBytes = new byte[byteLength];
+                            reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, profilePictureBytes, 0, (int)byteLength); // Ler o ProfilePicture como byte[]
+                            userInfo.ProfilePicture = profilePictureBytes; // Atribuir o ProfilePicture como byte[]
+                        }
+                    }
+                }
+            }
+
+            return userInfo;
         }
 
         public UserModel GetById(int id)

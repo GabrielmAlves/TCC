@@ -64,7 +64,9 @@ namespace PlayerClassifier.WPF.ViewModel
             if (user != null)
             {
                 {
-                    ProfilePicture = CurrentUser.profilePicture;
+                    var userImage = _userRepository.GetProfilePicture(Thread.CurrentPrincipal.Identity.Name);
+                    ProfilePicture = userImage.ProfilePicture;
+                    //ProfilePicture = CurrentUser.profilePicture;
                 };
             }
             else
