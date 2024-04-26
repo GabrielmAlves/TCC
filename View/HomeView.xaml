@@ -32,14 +32,10 @@
             <Grid>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <!--Control bar-->
-                        <!--<RowDefinition Height="0"/>-->
-                        <!--Header-->
                         <RowDefinition Height="0"/>
                         <!--Content section-->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <!--Control bar-->
                     <StackPanel     Width="250"
                                     Grid.Row="2"
                                     Orientation="Vertical"
@@ -57,7 +53,7 @@
                                 Orientation="Vertical"
                                 Margin="-2,100,300,-2"
                                 FlowDirection="LeftToRight">
-                            <TextBlock Text="Últimas classificações"
+                            <TextBlock Text="Quais dados devo inserir?"
                                 FontWeight="Medium"
                                 FontFamily="Montserrat"
                                 FontSize="18"
