@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using PlayerClassifier.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,25 @@ namespace PlayerClassifier.WPF.View
         public ClassifyView()
         {
             InitializeComponent();
+        }
+
+        private void btnUploadFile_Click (object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Arquivos csv | *.csv";
+            bool? fileOpened = openFileDialog.ShowDialog();
+
+            if (fileOpened == true)
+            {
+                string path = openFileDialog.FileName;
+                string fileName = openFileDialog.SafeFileName;
+                MessageBox.Show(path);
+                MessageBox.Show(fileName);
+            }
+            else
+            {
+                Console.WriteLine("erro");
+            }
         }
     }
 }
