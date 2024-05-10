@@ -29,7 +29,7 @@
                     <StackPanel Width="300"
                                 Grid.Row="1"
                                 Orientation="Vertical"
-                                Margin="50,10,70,-2"
+                                Margin="50,-30,70,-2"
                                 FlowDirection="LeftToRight"
                                 HorizontalAlignment="Center">
                         <fontAwesome:IconImage Icon="FileUpload"
@@ -66,6 +66,38 @@
                                         <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
                                             <ContentPresenter VerticalAlignment="Center"
                                                               HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel>
+                            <Button x:Name="btnClassify"
+                                    BorderThickness="0"
+                                    Content="Classificar jogador"
+                                    Foreground="white"
+                                    FontSize="12"
+                                    FontFamily="Montserrat"
+                                    Cursor="Hand"
+                                    Grid.Column="3"
+                                    Margin="0,35,0,0"
+                                    Click="btnUploadFile_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#000"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#000"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Button.Template>
