@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PlayerClassifier.WPF.ViewModel;
 
 namespace PlayerClassifier.WPF.View
 {
@@ -37,6 +38,8 @@ namespace PlayerClassifier.WPF.View
             {
                 string path = openFileDialog.FileName;
                 string fileName = openFileDialog.SafeFileName;
+                var classifyBinding = new ClassifyPlayerViewModel();
+                classifyBinding.fileWasUploaded(path);
                 MessageBox.Show(path);
                 MessageBox.Show(fileName);
             }

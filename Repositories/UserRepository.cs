@@ -15,6 +15,8 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -253,6 +255,15 @@ namespace PlayerClassifier.WPF.Repositories
                 smtpClient.Disconnect(true);
                 smtpClient.Dispose();
             }
+        }
+
+        public bool ClassifyPlayer(string path)
+        {
+            var engine = Python.CreateEngine();
+            var scope = engine.CreateScope();
+            scope.SetVariable("", path);
+            engine.ExecuteFile(path, scope);
+            return true;
         }
     }
 }

@@ -3,12 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
              xmlns:fontAwesome="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
 
+
+
+    <Grid>
+        <Grid.DataContext>
+            <viewModel:ClassifyPlayerViewModel />
+        </Grid.DataContext>
+        
         <Border CornerRadius="10"
                 BorderBrush="Transparent"
                 BorderThickness="3">
@@ -75,6 +82,7 @@
                             <Button x:Name="btnClassify"
                                     BorderThickness="0"
                                     Content="Classificar jogador"
+                                    Command="{Binding ClassifyCommand}"
                                     Foreground="white"
                                     FontSize="12"
                                     FontFamily="Montserrat"
