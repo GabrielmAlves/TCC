@@ -54,7 +54,7 @@ namespace PlayerClassifier.WPF.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PlayerClassifier.WPF;V1.0.0.0;component/view/observationview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PlayerClassifier.WPF;component/view/observationview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\ObservationView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

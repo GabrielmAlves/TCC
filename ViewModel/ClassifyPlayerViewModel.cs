@@ -16,7 +16,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public string UserFile { get { return _uploadedFile; } set { _uploadedFile = value; OnPropertyChanged(nameof(UserFile)); } }
 
 
-        public ICommand ClassifyCommand {  get; }
+        public ICommand ClassifyCommand { get; set; }
 
         public ClassifyPlayerViewModel() {
 
@@ -24,20 +24,24 @@ namespace PlayerClassifier.WPF.ViewModel
             ClassifyCommand = new ViewModelCommand(ExecuteClassifyCommand, CanExecuteClassifyCommand);
         }
 
-        private void ExecuteClassifyCommand(object obj)
-        {
-            var classifyPlayer = _userRepository.ClassifyPlayer(UserFile);
-        }
 
         private bool CanExecuteClassifyCommand(object obj)
         {
+            bool canExecute;
             if (string.IsNullOrEmpty(UserFile))
             {
-                return false;
-            } else
-            {
-                return true;
+                canExecute = false;
             }
+            else
+            {
+                canExecute = true;
+            }
+            return canExecute;
+        }
+
+        private void ExecuteClassifyCommand(object obj)
+        {
+            var classifyPlayer = _userRepository.ClassifyPlayer(UserFile);
         }
 
         public bool fileWasUploaded(string filePath)
@@ -49,6 +53,7 @@ namespace PlayerClassifier.WPF.ViewModel
             {
                 UserFile = filePath;
                 OnPropertyChanged(nameof(UserFile));
+                ClassifyCommand = new ViewModelCommand(ExecuteClassifyCommand, CanExecuteClassifyCommand);
                 return true;
             }
         }

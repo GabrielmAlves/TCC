@@ -88,8 +88,7 @@
                                     FontFamily="Montserrat"
                                     Cursor="Hand"
                                     Grid.Column="3"
-                                    Margin="0,35,0,0"
-                                    Click="btnUploadFile_Click">
+                                    Margin="0,35,0,0">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="#000"/>

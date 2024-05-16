@@ -40,8 +40,8 @@ namespace PlayerClassifier.WPF.View
                 string fileName = openFileDialog.SafeFileName;
                 var classifyBinding = new ClassifyPlayerViewModel();
                 classifyBinding.fileWasUploaded(path);
-                MessageBox.Show(path);
-                MessageBox.Show(fileName);
+                //MessageBox.Show(path);
+                //MessageBox.Show(fileName);
             }
             else
             {
