@@ -9,6 +9,7 @@ namespace PlayerClassifier.WPF.Model
     public class PlayerModel
     {
         public string Name { get; set; }
+        public int PlayerID { get; set; }
         public int Age { get; set; }
         public int WeakFoot {  get; set; }
         public int SkillMoves { get; set; }
