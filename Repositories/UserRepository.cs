@@ -17,6 +17,7 @@ using System.Windows.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -220,6 +221,59 @@ namespace PlayerClassifier.WPF.Repositories
                     return false;
                 }
             }
+        }
+
+        public bool AddUploadedFile(string filePath, UserAccountModel user, string userName)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = "UPDATE UsersPc SET UploadedFile = @UploadedFile WHERE Username = @userName";
+                command.CommandText = sql;
+                command.Parameters.Add("@userName", System.Data.SqlDbType.NVarChar).Value = userName;
+                command.Parameters.AddWithValue("@UploadedFile", filePath);
+                //command.Parameters.AddWithValue("@Username", user.UploadedFile); // Utilizar o Username do usuário
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public UserAccountModel GetUploadedFile(string username)
+        {
+            UserAccountModel user = null;
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT UploadedFile FROM [UsersPc] WHERE Username = @username";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = username;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserAccountModel
+                        {
+                            UploadedFile = reader["UploadedFile"].ToString()
+                        };
+                    }
+                }
+            }
+
+            return user;
         }
 
         public void sendEmail(string userEmail)

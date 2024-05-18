@@ -15,5 +15,6 @@ namespace PlayerClassifier.WPF.Model
         public string Password { get; set; }
         public string Name { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public string UploadedFile { get; set; }
     }
 }
