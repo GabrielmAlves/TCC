@@ -313,7 +313,7 @@ namespace PlayerClassifier.WPF.Repositories
 
         public string ClassifyPlayer(string path)
         {
-            string scriptPython = "";
+            string scriptPython = "C:\\Users\\Usuario\\OneDrive\\Documentos\\Faculdade\\9 SEMESTRE\\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\\TCC\\PlayerClassifier\\PlayerClassifier.WPF\\model_script.py";
             var engine = Python.CreateEngine(); //componente principal do IronPython para acessar scripts em Python
             var scope = engine.CreateScope(); //é o que permite que passe variáveis do C# pro Python
             var argv = new[] { scriptPython, path };

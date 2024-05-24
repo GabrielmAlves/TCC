@@ -26,8 +26,9 @@ def process_csv(file_path, model_path, scaler_path):
     return result_json
 
 if __name__ == "__main__":
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 1:
         csv_path = sys.argv[1]
+        print(csv_path)
         model_path = "C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\modelo.pkl"
         scaler_path = "C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF\scaler.pkl"
         result = process_csv(csv_path, model_path, scaler_path)

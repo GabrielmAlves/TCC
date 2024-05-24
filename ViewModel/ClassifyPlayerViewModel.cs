@@ -54,6 +54,7 @@ namespace PlayerClassifier.WPF.ViewModel
                 var userInfo = _userRepository.GetUploadedFile(Thread.CurrentPrincipal.Identity.Name);
                 UserFile = userInfo.UploadedFile;
                 var classifyPlayer = _userRepository.ClassifyPlayer(UserFile);
+                MessageBox.Show("Resultado da classificação: ", classifyPlayer);
             }
         }
 
