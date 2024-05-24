@@ -16,7 +16,7 @@ namespace PlayerClassifier.WPF.Model
         bool Add(NetworkCredential credential, string userName, string userEmail, string cargo);
         bool AddProfilePicture(byte[] profileImage, UserAccountModel currentUser, string user);
         bool AddUploadedFile(string path, UserAccountModel currentUser, string user);
-        bool ClassifyPlayer(string filePath);
+        string ClassifyPlayer(string filePath);
         void Edit (UserModel userModel);
         void Remove(int id);
         UserModel GetById (int id);

@@ -311,13 +311,34 @@ namespace PlayerClassifier.WPF.Repositories
             }
         }
 
-        public bool ClassifyPlayer(string path)
+        public string ClassifyPlayer(string path)
         {
-            var engine = Python.CreateEngine();
-            var scope = engine.CreateScope();
-            scope.SetVariable("", path);
-            engine.ExecuteFile(path, scope);
-            return true;
+            string scriptPython = "";
+            var engine = Python.CreateEngine(); //componente principal do IronPython para acessar scripts em Python
+            var scope = engine.CreateScope(); //é o que permite que passe variáveis do C# pro Python
+            var argv = new[] { scriptPython, path };
+
+            engine.GetSysModule().SetVariable("argv", argv);
+
+            var outputPython = new MemoryStream();
+            engine.Runtime.IO.SetOutput(outputPython, Encoding.UTF8); //para pegar a saída do script em Python
+
+            try
+            {
+                engine.ExecuteFile(scriptPython, scope);
+
+                outputPython.Seek(0, SeekOrigin.Begin); //move o ponteiro para o começo do fluxo de dados
+                var reader = new StreamReader(outputPython);
+                string result = reader.ReadToEnd();
+
+                return result;
+            }
+            catch
+            {
+                Console.WriteLine("\nErro ao acessar o script em Python..");
+                return null;
+            }
+            
         }
     }
 }
