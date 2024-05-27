@@ -37,8 +37,8 @@ namespace PlayerClassifier.WPF.View
             if (fileOpened == true)
             {
                 string path = openFileDialog.FileName;
-                string name = openFileDialog.SafeFileName;
-                MessageBox.Show("Arquivo selecionado: ", name);
+                //string name = openFileDialog.SafeFileName;
+                MessageBox.Show("Arquivo selecionado: ", path);
                 if (DataContext is ClassifyPlayerViewModel viewModel)
                 {
                     viewModel.UserFile = path;

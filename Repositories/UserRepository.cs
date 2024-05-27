@@ -18,6 +18,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 using Microsoft.VisualBasic.ApplicationServices;
+using Python.Runtime;
+using IronPython.Modules;
+using System.Reflection;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -310,35 +313,48 @@ namespace PlayerClassifier.WPF.Repositories
                 smtpClient.Dispose();
             }
         }
+        public void ConfigurePython()
+        {
+            string pythonHome = @"C:\Users\Usuario\AppData\Local\Programs\Python\Python312";
+
+            string pythonDll = @"C:\Users\Usuario\AppData\Local\Programs\Python\Python312\python312.dll";
+
+            Environment.SetEnvironmentVariable("PYTHONHOME", pythonHome);
+            Environment.SetEnvironmentVariable("PYTHONPATH", $"{pythonHome}\\Lib;{pythonHome}\\Lib\\site-packages");
+
+            Runtime.PythonDLL = pythonDll;
+
+            PythonEngine.Initialize();
+        }
 
         public string ClassifyPlayer(string path)
         {
-            string scriptPython = "C:\\Users\\Usuario\\OneDrive\\Documentos\\Faculdade\\9 SEMESTRE\\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\\TCC\\PlayerClassifier\\PlayerClassifier.WPF\\model_script.py";
-            var engine = Python.CreateEngine(); //componente principal do IronPython para acessar scripts em Python
-            var scope = engine.CreateScope(); //é o que permite que passe variáveis do C# pro Python
-            var argv = new[] { scriptPython, path };
-
-            engine.GetSysModule().SetVariable("argv", argv);
-
-            var outputPython = new MemoryStream();
-            engine.Runtime.IO.SetOutput(outputPython, Encoding.UTF8); //para pegar a saída do script em Python
+            ConfigurePython();
 
             try
             {
-                engine.ExecuteFile(scriptPython, scope);
+                using (Py.GIL())
+                {
+                    dynamic sys = Py.Import("sys");
+                    sys.path.append(@"C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF");
 
-                outputPython.Seek(0, SeekOrigin.Begin); //move o ponteiro para o começo do fluxo de dados
-                var reader = new StreamReader(outputPython);
-                string result = reader.ReadToEnd();
+                    dynamic modelScript = Py.Import("model_script");
+                    dynamic result = modelScript.main(path);
 
-                return result;
+                    return result.ToString();
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("\nErro ao acessar o script em Python..");
+                Console.WriteLine("\nErro ao acessar o script em Python: " + ex.Message);
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);
                 return null;
             }
-            
+            finally
+            {
+                PythonEngine.Shutdown();
+            }
         }
+
     }
 }
