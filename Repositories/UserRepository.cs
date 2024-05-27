@@ -21,6 +21,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Python.Runtime;
 using IronPython.Modules;
 using System.Reflection;
+using Newtonsoft.Json.Linq;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -341,7 +342,11 @@ namespace PlayerClassifier.WPF.Repositories
                     dynamic modelScript = Py.Import("model_script");
                     dynamic result = modelScript.main(path);
 
-                    return result.ToString();
+                    string jsonString =  result.ToString();
+                    JArray jsonArray = JArray.Parse(jsonString);
+                    string prediction = jsonArray[0]["prediction"].ToString();
+
+                    return prediction;
                 }
             }
             catch (Exception ex)
