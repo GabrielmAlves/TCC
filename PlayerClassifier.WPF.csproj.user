@@ -16,6 +16,9 @@
     <Compile Update="View\CompareView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ForgotPasswordView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\HistoryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -55,6 +58,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\CompareView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ForgotPasswordView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\HistoryView.xaml">

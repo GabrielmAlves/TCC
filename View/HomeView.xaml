@@ -51,16 +51,15 @@
                     <StackPanel
                                 Grid.Row="1"
                                 Orientation="Vertical"
-                                Margin="-2,50,187,-2"
+                                Margin="-2,50,0,-2"
                                 FlowDirection="LeftToRight">
                         <TextBlock Text="O que colocar em meu CSV?"
                                 FontWeight="Medium"
                                 FontFamily="Montserrat"
                                 FontSize="15"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 Width="209"
                                 Margin="10,20,10,10" Height="17"/>
-                        
                     </StackPanel>
                 </Grid>
             </Grid>

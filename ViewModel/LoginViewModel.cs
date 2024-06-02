@@ -79,7 +79,7 @@ namespace PlayerClassifier.WPF.ViewModel
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
             DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+            RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
             //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
         }
 
@@ -122,9 +122,10 @@ namespace PlayerClassifier.WPF.ViewModel
             signUpView.Show();
         }
 
-        private void ExecuteRecoverPasswordCommand (string username, string email)
+        private void ExecuteRecoverPasswordCommand (object obj)
         {
-            
+            var forgotPasswordView = new ForgotPasswordView();
+            forgotPasswordView.Show();
         }
     }
 }
