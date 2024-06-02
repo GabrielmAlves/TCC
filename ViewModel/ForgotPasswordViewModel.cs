@@ -1,4 +1,5 @@
-﻿using PlayerClassifier.WPF.Model;
+﻿using Mono.Unix.Native;
+using PlayerClassifier.WPF.Model;
 using PlayerClassifier.WPF.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static IronPython.Modules._ast;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -49,14 +52,21 @@ namespace PlayerClassifier.WPF.ViewModel
                 {
                     isFieldsOk = false;
                 }
-                
             }
             return isFieldsOk;
         }
 
         private void ExecuteConfirmPasswordCommand(object obj)
         {
-            throw new NotImplementedException();
+            var editPassword = _userRepository.EditPassword(new System.Net.NetworkCredential(UserName, NewPassword));
+            if (editPassword)
+            {
+                IsViewVisible = false;
+            }
+            else
+            {
+                ErrorMessage = "Informações inválidas.";
+            }
         }
     }
 }

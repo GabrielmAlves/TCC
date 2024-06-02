@@ -361,5 +361,30 @@ namespace PlayerClassifier.WPF.Repositories
             }
         }
 
+        public bool EditPassword (NetworkCredential credential)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = "UPDATE UsersPc SET Password = @password WHERE Username = @userName";
+                command.CommandText = sql;
+                command.Parameters.Add("@userName", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
+                command.Parameters.AddWithValue("@password", credential.Password);
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
     }
 }
