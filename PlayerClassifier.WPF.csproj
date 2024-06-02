@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\dados-bg.png" />
+    <None Remove="Images\dados.png" />
     <None Remove="Images\green-circle.png" />
     <None Remove="Images\pc-image.png" />
     <None Remove="Images\soccer-field %281%29.png" />
@@ -31,6 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\dados-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\dados.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\green-circle.png" />
     <Resource Include="Images\pc-image.png" />
     <Resource Include="Images\soccer-field (1).png" />
