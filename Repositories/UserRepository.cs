@@ -22,6 +22,7 @@ using Python.Runtime;
 using IronPython.Modules;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace PlayerClassifier.WPF.Repositories
 {
@@ -280,6 +281,33 @@ namespace PlayerClassifier.WPF.Repositories
             return user;
         }
 
+        public UserAccountModel GetUploadedFiles(string username)
+        {
+            UserAccountModel user = null;
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT PlayersComparedFile FROM [UsersPc] WHERE Username = @username";
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = username;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserAccountModel
+                        {
+                            PlayersComparedFile = reader["PlayersComparedFile"].ToString()
+                        };
+                    }
+                }
+            }
+
+            return user;
+        }
+
         public void sendEmail(string userEmail)
         {
             MimeMessage message = new MimeMessage();
@@ -346,7 +374,44 @@ namespace PlayerClassifier.WPF.Repositories
                     JArray jsonArray = JArray.Parse(jsonString);
                     string prediction = jsonArray[0]["prediction"].ToString();
 
+                    var insertPlayer = InsertJogador(jsonString);
+
                     return prediction;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nErro ao acessar o script em Python: " + ex.Message);
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);
+                return null;
+            }
+            finally
+            {
+                PythonEngine.Shutdown();
+            }
+        }
+
+        public string ComparePlayers(string jsonPaths)
+        {
+            ConfigurePython();
+
+            try
+            {
+                using (Py.GIL())
+                {
+                    dynamic sys = Py.Import("sys");
+                    sys.path.append(@"C:\Users\Usuario\OneDrive\Documentos\Faculdade\9 SEMESTRE\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\TCC\PlayerClassifier\PlayerClassifier.WPF");
+
+                    dynamic modelScript = Py.Import("model_script");
+                    dynamic result = modelScript.comparePlayers(jsonPaths);
+
+                    string jsonString = result.ToString();
+                    JArray jsonArray = JArray.Parse(jsonString);
+                    string comparison = jsonArray.ToString();
+
+                    //var insertPlayer = InsertJogador(jsonString);
+
+                    return comparison;
                 }
             }
             catch (Exception ex)
@@ -385,6 +450,81 @@ namespace PlayerClassifier.WPF.Repositories
                 }
             }
         }
+
+        public int InsertJogador(string json)
+        {
+            int jogadorId;
+
+            string query = "INSERT INTO Players (Caracteristicas) OUTPUT INSERTED.Id VALUES (@Caracteristicas)";
+
+            using (var connection = GetConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Caracteristicas", json);
+
+                connection.Open();
+                jogadorId = (int)command.ExecuteScalar();
+            }
+
+            //JArray jsonArray = JArray.Parse(json);
+            //string age = jsonArray[0]["age"].ToString();
+            //string prediction = jsonArray[0]["prediction"].ToString();
+
+            //var user = GetByUserName(Thread.CurrentPrincipal.Identity.Name);
+            //InsertClassification(user, jogadorId, prediction);
+
+            return jogadorId;
+        }
+
+        public bool AddUploadedFiles(string filePath1, string filepath2, string userName)
+        {
+
+            var filePaths = new
+            {
+                FilePath1 = filePath1,
+                FilePath2 = filepath2
+            };
+
+            string jsonFilePaths = JsonConvert.SerializeObject(filePaths);
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = "UPDATE UsersPc SET PlayersComparedFile = @PlayersComparedFile WHERE Username = @userName";
+                command.CommandText = sql;
+                command.Parameters.Add("@userName", System.Data.SqlDbType.NVarChar).Value = userName;
+                command.Parameters.Add("@PlayersComparedFile", System.Data.SqlDbType.NVarChar).Value = jsonFilePaths;
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        //public void InsertClassification(UserModel username, int jogadorClassificado, string classificacaoJsonPart)
+        //{
+        //    string query = "INSERT INTO Classificacoes (Username, JogadorClassificado, Caracteristicas) VALUES (@Username, @JogadorClassificado, @Caracteristicas)";
+
+        //    using (var connection = GetConnection())
+        //    {
+        //        SqlCommand command = new SqlCommand(query, connection);
+        //        command.Parameters.AddWithValue("@Username", username.Name);
+        //        command.Parameters.AddWithValue("@JogadorClassificado", jogadorClassificado);
+        //        command.Parameters.AddWithValue("@Caracteristicas", classificacaoJsonPart);
+
+        //        connection.Open();
+        //        command.ExecuteNonQuery();
+        //    }
+        //}
 
     }
 }

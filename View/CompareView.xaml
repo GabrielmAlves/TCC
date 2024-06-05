@@ -3,10 +3,113 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fontAwesome="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
              xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.DataContext>
+            <viewModel:CompareViewModel />
+        </Grid.DataContext>
+
+        <Border CornerRadius="10"
+        BorderBrush="Transparent"
+        BorderThickness="3">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0"/>
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Width="300"
+                        Grid.Row="1"
+                        Orientation="Vertical"
+                        Margin="50,-30,70,-2"
+                        FlowDirection="LeftToRight"
+                        HorizontalAlignment="Center">
+                        <fontAwesome:IconImage Icon="FileUpload"
+                                       Width="100"
+                                       Height="100"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,60,0,0"/>
+                        <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Button x:Name="btnUploadFile1"
+                            BorderThickness="0"
+                            Content="Envie arquivos .csv"
+                            Foreground="white"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="3"
+                            Margin="0,35,0,0"
+                            Click="btnUploadFile_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="green"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="green"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel>
+                            <Button x:Name="btnCompare"
+                            BorderThickness="0"
+                            Content="Comparar jogadores"
+                            Command="{Binding CompareCommand}"
+                            Foreground="white"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="3"
+                            Margin="0,35,0,0">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#000"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#000"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

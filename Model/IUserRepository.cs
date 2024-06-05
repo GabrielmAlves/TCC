@@ -16,14 +16,17 @@ namespace PlayerClassifier.WPF.Model
         bool Add(NetworkCredential credential, string userName, string userEmail, string cargo);
         bool AddProfilePicture(byte[] profileImage, UserAccountModel currentUser, string user);
         bool AddUploadedFile(string path, UserAccountModel currentUser, string user);
+        bool AddUploadedFiles(string path1, string path2, string user);
         bool EditPassword(NetworkCredential credential);
         string ClassifyPlayer(string filePath);
+        string ComparePlayers(string jsonPaths);
         void Edit (UserModel userModel);
         void Remove(int id);
         UserModel GetById (int id);
         UserModel GetProfilePicture (string username);
         UserModel GetByUserName (string username);
         UserAccountModel GetUploadedFile(string username);
+        UserAccountModel GetUploadedFiles(string username);
         IEnumerable<UserModel> GetByAll();
     }
 }
