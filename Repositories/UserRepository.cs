@@ -406,12 +406,10 @@ namespace PlayerClassifier.WPF.Repositories
                     dynamic result = modelScript.comparePlayers(jsonPaths);
 
                     string jsonString = result.ToString();
-                    JArray jsonArray = JArray.Parse(jsonString);
-                    string comparison = jsonArray.ToString();
 
                     //var insertPlayer = InsertJogador(jsonString);
 
-                    return comparison;
+                    return jsonString;
                 }
             }
             catch (Exception ex)

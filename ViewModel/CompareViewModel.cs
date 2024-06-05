@@ -53,7 +53,7 @@ namespace PlayerClassifier.WPF.ViewModel
                 var userInfo = _userRepository.GetUploadedFiles(Thread.CurrentPrincipal.Identity.Name);
                 UserFiles = userInfo.PlayersComparedFile;
                 var comparePlayers = _userRepository.ComparePlayers(UserFiles);
-                MessageBox.Show("Resultado da comparação: ", comparePlayers);
+                MessageBox.Show($"Resultado da comparação: {comparePlayers}", "Comparação de Arquivos", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

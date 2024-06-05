@@ -25,15 +25,32 @@ def comparePlayers(userFiles):
     model_path = "C:/Users/Usuario/OneDrive/Documentos/Faculdade/9 SEMESTRE/PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I/TCC/PlayerClassifier/PlayerClassifier.WPF/modelo.pkl"
     scaler_path = "C:/Users/Usuario/OneDrive/Documentos/Faculdade/9 SEMESTRE/PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I/TCC/PlayerClassifier/PlayerClassifier.WPF/scaler.pkl"
 
-    result1 = process_csv(filePath1, model_path, scaler_path)
-    result2 = process_csv(filePath2, model_path, scaler_path)
+    result1 = json.loads(process_csv(filePath1, model_path, scaler_path))
+    result2 = json.loads(process_csv(filePath2, model_path, scaler_path))
 
-    results = {
-        "Result1": json.loads(result1),
-        "Result2": json.loads(result2)
-    }
+    prediction1 = result1[0]['prediction']
+    prediction2 = result2[0]['prediction']
 
-    return json.dumps(results, indent=4)
+    if prediction1 > prediction2:
+        comparison_result = {
+            "Result1": filePath1,
+            "Result2": filePath2,
+            "GreaterResult": "Result1"
+        }
+    elif prediction1 < prediction2:
+        comparison_result = {
+            "Result1": filePath1,
+            "Result2": filePath2,
+            "GreaterResult": "Result2"
+        }
+    else:
+        comparison_result = {
+            "Result1": filePath1,
+            "Result2": filePath2,
+            "GreaterResult": "Equal"
+        }
+
+    return json.dumps(comparison_result, indent=4)
 
 def main(csv_path):
     model_path = "C:/Users/Usuario/OneDrive/Documentos/Faculdade/9 SEMESTRE/PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I/TCC/PlayerClassifier/PlayerClassifier.WPF/modelo.pkl"
