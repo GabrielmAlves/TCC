@@ -373,8 +373,9 @@ namespace PlayerClassifier.WPF.Repositories
                     string jsonString =  result.ToString();
                     JArray jsonArray = JArray.Parse(jsonString);
                     string prediction = jsonArray[0]["prediction"].ToString();
+                    string name = jsonArray[0]["name"].ToString();
 
-                    var insertPlayer = InsertJogador(jsonString);
+                    var insertPlayer = InsertJogador(jsonString, name);
 
                     return prediction;
                 }
@@ -449,27 +450,27 @@ namespace PlayerClassifier.WPF.Repositories
             }
         }
 
-        public int InsertJogador(string json)
+        public int InsertJogador(string json, string name)
         {
             int jogadorId;
 
-            string query = "INSERT INTO Players (Caracteristicas) OUTPUT INSERTED.Id VALUES (@Caracteristicas)";
+            string query = "INSERT INTO Jogadores (Information, Name) VALUES (@Information, @Name); SELECT SCOPE_IDENTITY();";
 
             using (var connection = GetConnection())
             {
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Caracteristicas", json);
-
+                command.Parameters.AddWithValue("@Information", json);
+                command.Parameters.AddWithValue("@Name", name);
                 connection.Open();
-                jogadorId = (int)command.ExecuteScalar();
+                jogadorId = Convert.ToInt32(command.ExecuteScalar());
             }
 
-            //JArray jsonArray = JArray.Parse(json);
+            JArray jsonArray = JArray.Parse(json);
             //string age = jsonArray[0]["age"].ToString();
-            //string prediction = jsonArray[0]["prediction"].ToString();
+            string prediction = jsonArray[0]["prediction"].ToString();
 
-            //var user = GetByUserName(Thread.CurrentPrincipal.Identity.Name);
-            //InsertClassification(user, jogadorId, prediction);
+            var user = GetByUserName(Thread.CurrentPrincipal.Identity.Name);
+            InsertClassification(user, jogadorId, prediction);
 
             return jogadorId;
         }
@@ -508,21 +509,29 @@ namespace PlayerClassifier.WPF.Repositories
             }
         }
 
-        //public void InsertClassification(UserModel username, int jogadorClassificado, string classificacaoJsonPart)
-        //{
-        //    string query = "INSERT INTO Classificacoes (Username, JogadorClassificado, Caracteristicas) VALUES (@Username, @JogadorClassificado, @Caracteristicas)";
+        public void InsertClassification(UserModel username, int jogadorClassificado, string classificacaoJsonPart)
+        {
+            string query = "INSERT INTO Classifications (Username, PlayerId, Caracteristicas) VALUES (@Username, @PlayerId, @Caracteristicas)";
 
-        //    using (var connection = GetConnection())
-        //    {
-        //        SqlCommand command = new SqlCommand(query, connection);
-        //        command.Parameters.AddWithValue("@Username", username.Name);
-        //        command.Parameters.AddWithValue("@JogadorClassificado", jogadorClassificado);
-        //        command.Parameters.AddWithValue("@Caracteristicas", classificacaoJsonPart);
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", username.UserName);
+                    command.Parameters.AddWithValue("@PlayerId", jogadorClassificado);
+                    command.Parameters.AddWithValue("@Caracteristicas", classificacaoJsonPart);
 
-        //        connection.Open();
-        //        command.ExecuteNonQuery();
-        //    }
-        //}
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it as needed
+                    Console.WriteLine("An error occurred: " + ex.Message);
+                }
+            }
+        }
 
     }
 }
