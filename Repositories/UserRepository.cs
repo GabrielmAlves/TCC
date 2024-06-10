@@ -453,27 +453,54 @@ namespace PlayerClassifier.WPF.Repositories
         public int InsertJogador(string json, string name)
         {
             int jogadorId;
-
-            string query = "INSERT INTO Jogadores (Information, Name) VALUES (@Information, @Name); SELECT SCOPE_IDENTITY();";
+            string prediction;
+            var user = GetByUserName(Thread.CurrentPrincipal.Identity.Name);
 
             using (var connection = GetConnection())
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Information", json);
-                command.Parameters.AddWithValue("@Name", name);
                 connection.Open();
-                jogadorId = Convert.ToInt32(command.ExecuteScalar());
+
+                // Verificar se o nome já existe na tabela Jogadores
+                string checkQuery = "SELECT Id FROM Jogadores WHERE Name = @Name";
+                SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
+                checkCommand.Parameters.AddWithValue("@Name", name);
+
+                object result = checkCommand.ExecuteScalar();
+
+                if (result != null)
+                {
+                    // Nome já existe, recuperar o ID
+                    jogadorId = Convert.ToInt32(result);
+
+                    // Parse do JSON para obter a previsão
+                    JArray jsonArray = JArray.Parse(json);
+                    prediction = jsonArray[0]["prediction"].ToString();
+
+                    // Chamar o método InsertClassification
+                    InsertClassification(user, jogadorId, prediction);
+                }
+                else
+                {
+                    // Nome não existe, inserir novo registro
+                    string insertQuery = "INSERT INTO Jogadores (Information, Name) VALUES (@Information, @Name); SELECT SCOPE_IDENTITY();";
+                    SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
+                    insertCommand.Parameters.AddWithValue("@Information", json);
+                    insertCommand.Parameters.AddWithValue("@Name", name);
+
+                    jogadorId = Convert.ToInt32(insertCommand.ExecuteScalar());
+
+                    // Parse do JSON para obter a previsão
+                    JArray jsonArray = JArray.Parse(json);
+                    prediction = jsonArray[0]["prediction"].ToString();
+
+                    // Chamar o método InsertClassification
+                    InsertClassification(user, jogadorId, prediction);
+                }
             }
-
-            JArray jsonArray = JArray.Parse(json);
-            //string age = jsonArray[0]["age"].ToString();
-            string prediction = jsonArray[0]["prediction"].ToString();
-
-            var user = GetByUserName(Thread.CurrentPrincipal.Identity.Name);
-            InsertClassification(user, jogadorId, prediction);
 
             return jogadorId;
         }
+
 
         public bool AddUploadedFiles(string filePath1, string filepath2, string userName)
         {
@@ -527,7 +554,6 @@ namespace PlayerClassifier.WPF.Repositories
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception or handle it as needed
                     Console.WriteLine("An error occurred: " + ex.Message);
                 }
             }
