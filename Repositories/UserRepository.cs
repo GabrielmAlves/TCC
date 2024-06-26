@@ -345,23 +345,27 @@ namespace PlayerClassifier.WPF.Repositories
         public void ConfigurePython()
         {
             string pythonHome = @"C:\Users\Usuario\AppData\Local\Programs\Python\Python312";
-
             string pythonDll = @"C:\Users\Usuario\AppData\Local\Programs\Python\Python312\python312.dll";
 
+            
             Environment.SetEnvironmentVariable("PYTHONHOME", pythonHome);
             Environment.SetEnvironmentVariable("PYTHONPATH", $"{pythonHome}\\Lib;{pythonHome}\\Lib\\site-packages");
 
+            
             Runtime.PythonDLL = pythonDll;
-
-            PythonEngine.Initialize();
         }
 
         public string ClassifyPlayer(string path)
         {
+            
             ConfigurePython();
 
             try
             {
+                
+                PythonEngine.Initialize();
+
+                
                 using (Py.GIL())
                 {
                     dynamic sys = Py.Import("sys");
@@ -370,11 +374,12 @@ namespace PlayerClassifier.WPF.Repositories
                     dynamic modelScript = Py.Import("model_script");
                     dynamic result = modelScript.main(path);
 
-                    string jsonString =  result.ToString();
+                    string jsonString = result.ToString();
                     JArray jsonArray = JArray.Parse(jsonString);
                     string prediction = jsonArray[0]["prediction"].ToString();
                     string name = jsonArray[0]["name"].ToString();
 
+                    
                     var insertPlayer = InsertJogador(jsonString, name);
 
                     return prediction;
@@ -388,9 +393,11 @@ namespace PlayerClassifier.WPF.Repositories
             }
             finally
             {
+                
                 PythonEngine.Shutdown();
             }
         }
+
 
         public string ComparePlayers(string jsonPaths)
         {

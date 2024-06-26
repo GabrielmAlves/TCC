@@ -42,7 +42,7 @@ namespace PlayerClassifier.WPF.View
                 {
                     MessageBox.Show("Arquivo selecionado: ", path);
                     viewModel.UserFile = path;
-                    viewModel.fileWasUploaded(path);
+                    viewModel.FileWasUploaded(path);
                 }
             }
             else

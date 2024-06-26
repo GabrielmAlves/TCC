@@ -1,14 +1,8 @@
-﻿using IronPython.Compiler.Ast;
-using PlayerClassifier.WPF.Model;
+﻿using PlayerClassifier.WPF.Model;
 using PlayerClassifier.WPF.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Python.Runtime;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -16,59 +10,61 @@ namespace PlayerClassifier.WPF.ViewModel
     {
         private string _uploadedFile;
         private UserAccountModel _currentUser;
-        IUserRepository _userRepository;
-        int firstTime = 2;
+        private IUserRepository _userRepository;
+        private int firstTime = 2;
+        private string _classificationResult;
+        private bool _isModalVisible;
+        private bool _isClassifying;
+
         public string UserFile { get { return _uploadedFile; } set { _uploadedFile = value; OnPropertyChanged(nameof(UserFile)); } }
         public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
+        public string ClassificationResult { get { return _classificationResult; } set { _classificationResult = value; OnPropertyChanged(nameof(ClassificationResult)); } }
+        public bool IsModalVisible { get { return _isModalVisible; } set { _isModalVisible = value; OnPropertyChanged(nameof(IsModalVisible)); } }
+        public bool IsClassifying { get { return _isClassifying; } set { _isClassifying = value; OnPropertyChanged(nameof(IsClassifying)); } }
 
         public ICommand ClassifyCommand { get; set; }
+        public ICommand CloseModalCommand { get; set; }
+        public ICommand PutPlayerOnWatchCommand { get; set; }
 
         public ClassifyPlayerViewModel()
         {
-
             _userRepository = new UserRepository();
             CurrentUser = new UserAccountModel();
-            ClassifyCommand = new ViewModelCommand(ExecuteClassifyCommand, CanExecuteClassifyCommand);
+            ClassifyCommand = new ViewModelCommand(async obj => await ExecuteClassifyCommand(obj), CanExecuteClassifyCommand);
+            CloseModalCommand = new ViewModelCommand(obj => IsModalVisible = false);
+            PutPlayerOnWatchCommand = new ViewModelCommand(obj => PutPlayerOnWatch());
         }
-
 
         private bool CanExecuteClassifyCommand(object obj)
         {
-            bool canExecute;
-
-            if (firstTime == 0)
-            {
-                canExecute = false;
-            }
-            else 
-            {
-                canExecute = true;
-            }
-            return canExecute;
+            return !IsClassifying && firstTime != 0;
         }
 
-        private void ExecuteClassifyCommand(object obj)
+        private async Task ExecuteClassifyCommand(object obj)
         {
+            IsClassifying = true;
+
             var user = _userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
             if (user != null)
             {
                 var userInfo = _userRepository.GetUploadedFile(Thread.CurrentPrincipal.Identity.Name);
                 UserFile = userInfo.UploadedFile;
-                var classifyPlayer = _userRepository.ClassifyPlayer(UserFile);
-                MessageBox.Show("Resultado da classificação: ", classifyPlayer);
+                var classifyPlayerResult = await Task.Run(() => _userRepository.ClassifyPlayer(UserFile));
+                ClassificationResult = classifyPlayerResult;
+                IsModalVisible = true;
             }
+
+            IsClassifying = false;
         }
 
-        public void loadFile(string path)
+        public void LoadFile(string path)
         {
             var user = _userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
             if (user != null)
             {
-                {
-                    CurrentUser.UploadedFile = path;
-                    OnPropertyChanged(nameof(CurrentUser));
-                    _userRepository.AddUploadedFile(path, CurrentUser, Thread.CurrentPrincipal.Identity.Name);
-                };
+                CurrentUser.UploadedFile = path;
+                OnPropertyChanged(nameof(CurrentUser));
+                _userRepository.AddUploadedFile(path, CurrentUser, Thread.CurrentPrincipal.Identity.Name);
             }
             else
             {
@@ -76,7 +72,7 @@ namespace PlayerClassifier.WPF.ViewModel
             }
         }
 
-        public bool fileWasUploaded(string filePath)
+        public bool FileWasUploaded(string filePath)
         {
             if (filePath == null)
             {
@@ -85,9 +81,15 @@ namespace PlayerClassifier.WPF.ViewModel
             else
             {
                 firstTime = 1;
-                loadFile(filePath);
+                LoadFile(filePath);
                 return true;
             }
+        }
+
+        private void PutPlayerOnWatch()
+        {
+            // Implement your logic here for putting the player on watch
+            MessageBox.Show("Jogador colocado em observação!");
         }
     }
 }

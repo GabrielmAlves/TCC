@@ -51,6 +51,9 @@
     <Page Update="Styles\ButtonStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\ModalStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\UIColors.xaml">
       <SubType>Designer</SubType>
     </Page>
