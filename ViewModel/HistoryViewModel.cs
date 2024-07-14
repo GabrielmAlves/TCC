@@ -41,7 +41,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private void LoadClassifications()
         {
             var user = Thread.CurrentPrincipal.Identity.Name;
-            var connectionString = "Server=localhost;Database=MVVMPC;Trusted_Connection=True;"; // Adicione sua string de conexão aqui
+            var connectionString = "Server=localhost;Database=MVVMPC;Trusted_Connection=True;";
 
             var classifications = new ObservableCollection<ClassificationModel>();
 
@@ -57,9 +57,8 @@ namespace PlayerClassifier.WPF.ViewModel
                     {
                         if (!reader.HasRows)
                         {
-                            // Se não houver linhas, define HasClassifications como false e retorna
                             HasClassifications = false;
-                            Classifications = classifications; // Certifica-se de definir a coleção vazia
+                            Classifications = classifications;
                             return;
                         }
 
@@ -76,15 +75,10 @@ namespace PlayerClassifier.WPF.ViewModel
                 }
             }
 
-            // Define HasClassifications como true pois a coleção contém classificações
             HasClassifications = true;
 
-            // Define a coleção de classificações na propriedade Classifications
             Classifications = classifications;
         }
-
-
-
 
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)

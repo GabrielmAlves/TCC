@@ -4,9 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PlayerClassifier.WPF.View"
+             xmlns:viewModel="clr-namespace:PlayerClassifier.WPF.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.DataContext>
+            <viewModel:ObservationViewModel/>
+        </Grid.DataContext>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Nenhum jogador em observação! :(" 
+           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOnHold}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding PlayersOnHold}" 
+          AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
+          AlternatingRowBackground="#E8F5E9" 
+          HeadersVisibility="Column"
+          GridLinesVisibility="Horizontal"
+          AlternationCount="2">
+            <DataGrid.Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+                    <Setter Property="ColumnHeaderHeight" Value="40"/>
+                    <Setter Property="RowHeight" Value="35"/>
+                    <Setter Property="HorizontalGridLinesBrush" Value="#10801D"/>
+                    <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasClassifications}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Style>
+            <DataGrid.Resources>
+                <!-- Estilo para cabeçalhos das colunas -->
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#10801D"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+
+                <!-- Estilo para células com bordas arredondadas -->
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="10"
+                                Padding="5">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <!-- Estilo para linhas -->
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#E8F5E9"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#10801D"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding PlayerId}"/>
+                <DataGridTextColumn Header="Sobre" Binding="{Binding About}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -467,7 +467,6 @@ namespace PlayerClassifier.WPF.Repositories
             {
                 connection.Open();
 
-                // Verificar se o nome já existe na tabela Jogadores
                 string checkQuery = "SELECT Id FROM Jogadores WHERE Name = @Name";
                 SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
                 checkCommand.Parameters.AddWithValue("@Name", name);
@@ -476,19 +475,15 @@ namespace PlayerClassifier.WPF.Repositories
 
                 if (result != null)
                 {
-                    // Nome já existe, recuperar o ID
                     jogadorId = Convert.ToInt32(result);
 
-                    // Parse do JSON para obter a previsão
                     JArray jsonArray = JArray.Parse(json);
                     prediction = jsonArray[0]["prediction"].ToString();
 
-                    // Chamar o método InsertClassification
                     InsertClassification(user, jogadorId, prediction);
                 }
                 else
                 {
-                    // Nome não existe, inserir novo registro
                     string insertQuery = "INSERT INTO Jogadores (Information, Name) VALUES (@Information, @Name); SELECT SCOPE_IDENTITY();";
                     SqlCommand insertCommand = new SqlCommand(insertQuery, connection);
                     insertCommand.Parameters.AddWithValue("@Information", json);
@@ -496,11 +491,9 @@ namespace PlayerClassifier.WPF.Repositories
 
                     jogadorId = Convert.ToInt32(insertCommand.ExecuteScalar());
 
-                    // Parse do JSON para obter a previsão
                     JArray jsonArray = JArray.Parse(json);
                     prediction = jsonArray[0]["prediction"].ToString();
 
-                    // Chamar o método InsertClassification
                     InsertClassification(user, jogadorId, prediction);
                 }
             }
@@ -564,6 +557,98 @@ namespace PlayerClassifier.WPF.Repositories
                     Console.WriteLine("An error occurred: " + ex.Message);
                 }
             }
+        }
+
+        public bool GetPlayerInfo(string playerName)
+        {
+            string query = @"
+            USE MVVMPC;
+            DECLARE @searchString NVARCHAR(255) = @search;
+            SELECT * FROM Jogadores WHERE Name LIKE '%' + @searchString + '%' FOR JSON AUTO, INCLUDE_NULL_VALUES;";
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = query;
+                command.CommandText = sql;
+                command.Parameters.AddWithValue("@search", playerName);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    string jsonResult = reader.GetString(0);
+                    Console.WriteLine(jsonResult);
+                    JArray originalArray = JArray.Parse(jsonResult);
+                    JToken player = originalArray[0];
+
+                    JArray informationArray = JArray.Parse(player["Information"].ToString());
+                    JToken information = informationArray[0];
+
+                    var result = new
+                    {
+                        Id = (int)player["Id"],
+                        Name = (string)player["Name"],
+                        Prediction = (int)information["prediction"],
+                        Dribbling = (int)information["dribbling"]
+                    };
+
+                    string resultJson = JsonConvert.SerializeObject(result, Formatting.Indented);
+                    Console.WriteLine(resultJson);
+
+                    AddPlayerOnHold(resultJson);
+
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            }
+
+        }
+
+        public bool AddPlayerOnHold(string playerInfos)
+        {
+            JObject playerData = JObject.Parse(playerInfos);
+
+            string name = (string)playerData["Name"];
+            int playerId = (int)playerData["Id"];
+
+            var aboutObject = new
+            {
+                Prediction = (int)playerData["Prediction"],
+                Dribbling = (int)playerData["Dribbling"]
+            };
+            string aboutJson = JsonConvert.SerializeObject(aboutObject);
+
+            var user = Thread.CurrentPrincipal.Identity.Name;
+
+            string query = "INSERT INTO PlayersInObservation (Name, PlayerId, About, Username) VALUES (@Name, @PlayerId, @About, @Username)";
+
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@PlayerId", playerId);
+                    command.Parameters.AddWithValue("@About", aboutJson);
+                    command.Parameters.AddWithValue("@Username", user);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erro: " + ex.Message);
+                    return false;
+                }
+            }
+
+
+
+            return true;
         }
 
     }

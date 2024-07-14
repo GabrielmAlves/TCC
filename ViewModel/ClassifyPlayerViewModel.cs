@@ -1,5 +1,6 @@
 ﻿using PlayerClassifier.WPF.Model;
 using PlayerClassifier.WPF.Repositories;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -88,7 +89,19 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private void PutPlayerOnWatch()
         {
-            // Implement your logic here for putting the player on watch
+            string pattern = @"([^\\]+)_dataset";
+
+            Match match = Regex.Match(UserFile, pattern);
+
+            if (match.Success)
+            {
+                string result = match.Groups[1].Value;
+                _userRepository.GetPlayerInfo(result);
+            }
+            else
+            {
+                Console.WriteLine("Não foi possível encontrar um match usando o pattern de regex.");
+            }
             MessageBox.Show("Jogador colocado em observação!");
         }
     }
