@@ -311,16 +311,16 @@ namespace PlayerClassifier.WPF.Repositories
         public void sendEmail(string userEmail)
         {
             MimeMessage message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Player Classifier", "engcomp.gabriel@gmail.com"));
+            message.From.Add(new MailboxAddress("Player Classifier", "playerclassifier@gmail.com"));
             message.To.Add(MailboxAddress.Parse(userEmail));
             message.Subject = "Bem-vindo!";
             message.Body = new TextPart("plain")
             {
                 Text = @"Você se cadastrou no sistema do Player Classifier!"
             };
-
-            string email = "engcomp.gabriel@gmail.com";
-            string senha = "iuqb qpfo zpzi hqzm";
+                
+            string email = "playerclassifier@gmail.com";
+            string senha = "wjom fzgo cgti qlsi";
 
             SmtpClient smtpClient = new SmtpClient();
 
