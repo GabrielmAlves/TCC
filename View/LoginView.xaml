@@ -218,7 +218,7 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
                             Margin="10,0,0,0">
-                    <CheckBox Content="Lembrar de mim" IsChecked="False"/>
+                    <CheckBox x:Name="checkbox" Content="Lembrar de mim" IsChecked="False" Checked="RememberMeCheckBox_Checked"/>
                 </StackPanel>
 
 

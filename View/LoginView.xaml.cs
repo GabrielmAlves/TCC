@@ -22,6 +22,7 @@ namespace PlayerClassifier.WPF.View
         public LoginView()
         {
             InitializeComponent();
+            LoadUserName();
         }
 
         private void Window_MouseDown (object sender, MouseEventArgs e)
@@ -40,6 +41,24 @@ namespace PlayerClassifier.WPF.View
         private void btnClose_Click (object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void RememberMeCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (checkbox.IsChecked == true)
+            {
+                Properties.Settings.Default.UserName = txtUserName.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void LoadUserName()
+        {
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.UserName))
+            {
+                txtUserName.Text = Properties.Settings.Default.UserName;
+                checkbox.IsChecked = true;
+            }
         }
     }
 }
