@@ -34,8 +34,15 @@ def process_csv(file_path, model_path, scaler_path):
     predictions = model.predict(scaled_features)
     df['prediction'] = predictions
 
-    result_json = df.to_json(orient='records')
-    return result_json
+    # Adicionar coeficientes do modelo ao JSON de resultado
+    coefficients = model.coef_.tolist()[0]
+    coefficients_dict = {f'coef_{i}': coef for i, coef in enumerate(coefficients)}
+
+    result_json = json.loads(df.to_json(orient='records'))
+    for record in result_json:
+        record['coefficients'] = coefficients_dict
+
+    return json.dumps(result_json, indent=4)
 
 def comparePlayers(userFiles):
     data = json.loads(userFiles)
