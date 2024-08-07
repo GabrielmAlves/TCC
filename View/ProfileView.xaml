@@ -125,7 +125,8 @@
                                 Cursor="Hand"
                                 Grid.Column="3"
                                 Margin="0,65,0,0"
-                                Click="btnSaveChanges_Click">
+                                Click="btnSaveChanges_Click"
+                                Command="{Binding SaveChangesCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="green"/>

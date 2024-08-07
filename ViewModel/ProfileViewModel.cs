@@ -22,6 +22,8 @@ namespace PlayerClassifier.WPF.ViewModel
         private UserAccountModel _currentUser;
         private string _userCargo;
         private byte[] _profilePicture;
+        private int _imageUploaded;
+        private int _jobChanged;
         //public bool IsTextBoxEnabled { get; set; }
         public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string UserCargo
@@ -34,14 +36,46 @@ namespace PlayerClassifier.WPF.ViewModel
             get { return _profilePicture; }
             set { _profilePicture = value; OnPropertyChanged(nameof(_profilePicture)); }
         }
+
+        public int ImageUploaded
+        {
+            get { return _imageUploaded; }
+            set { _imageUploaded = value; OnPropertyChanged(nameof(ImageUploaded)); }
+        }
+
+        public int JobChanged
+        {
+            get { return _jobChanged; }
+            set { _jobChanged = value; OnPropertyChanged(nameof(JobChanged)); }
+        }
+
+        public ICommand SaveChangesCommand { get; }
         public ProfileViewModel()
         {
             _userRepository = new UserRepository();
             CurrentUser = new UserAccountModel();
             loadCargo();
             loadProfilePicture();
+            SaveChangesCommand = new ViewModelCommand(ExecuteSaveChangesCommand, CanExecuteSaveChangesCommand);
             //IsTextBoxEnabled = false;
         }
+
+        private bool CanExecuteSaveChangesCommand(object obj)
+        {
+            if (ImageUploaded == 1 || JobChanged == 1)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        private void ExecuteSaveChangesCommand(object obj)
+        {
+            _userRepository.UpdateProfileChanges(ProfilePicture, UserCargo);
+        }
+
         private void loadCargo()
         {
             var user = _userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);

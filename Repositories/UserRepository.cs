@@ -651,5 +651,10 @@ namespace PlayerClassifier.WPF.Repositories
             return true;
         }
 
+        public bool UpdateProfileChanges(byte[] image, string job)
+        {
+            return true;
+        }
+
     }
 }

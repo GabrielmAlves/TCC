@@ -45,6 +45,7 @@ namespace PlayerClassifier.WPF.View
                 //imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var image = imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var profileBinding = new ProfileViewModel();
+                //profileBinding.ImageUploaded = 1;
                 profileBinding.SetProfilePictureFromImageSource(image);
             } else
             {
@@ -61,6 +62,8 @@ namespace PlayerClassifier.WPF.View
             else
             {
                 txtCargo.IsEnabled = true;
+                var profileBinding = new ProfileViewModel();
+                //profileBinding.JobChanged = 1;
             }
         }
 
