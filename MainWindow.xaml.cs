@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Runtime;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
+using PlayerClassifier.WPF.View;
 
 namespace PlayerClassifier.WPF
 {
@@ -76,6 +77,20 @@ namespace PlayerClassifier.WPF
                 popup.IsOpen = true;
                 popup.Focus();
             }
+        }
+
+        private void BtnLogout_Command(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.UserName = "";
+            Properties.Settings.Default.Save();
+
+            var loginview = new LoginView();
+            Window currentWindow = Window.GetWindow(this);
+            if (currentWindow != null)
+            {
+                currentWindow.Close();
+            }
+            loginview.Show(); //bug do logout
         }
     }
 }

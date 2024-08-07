@@ -24,6 +24,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private byte[] _profilePicture;
         private int _imageUploaded;
         private int _jobChanged;
+
         //public bool IsTextBoxEnabled { get; set; }
         public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string UserCargo
@@ -62,7 +63,7 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private bool CanExecuteSaveChangesCommand(object obj)
         {
-            if (ImageUploaded == 1 || JobChanged == 1)
+            if (ImageUploaded != 1 || JobChanged != 1)
             {
                 return true;
             } else
@@ -73,7 +74,7 @@ namespace PlayerClassifier.WPF.ViewModel
 
         private void ExecuteSaveChangesCommand(object obj)
         {
-            _userRepository.UpdateProfileChanges(ProfilePicture, UserCargo);
+            _userRepository.UpdateProfileChanges(UserCargo, Thread.CurrentPrincipal.Identity.Name, CurrentUser);
         }
 
         private void loadCargo()

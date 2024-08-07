@@ -378,11 +378,11 @@ namespace PlayerClassifier.WPF.Repositories
                     JArray jsonArray = JArray.Parse(jsonString);
                     string prediction = jsonArray[0]["prediction"].ToString();
                     string name = jsonArray[0]["name"].ToString();
+                    //string coefficients = jsonArray[0]["coefficients"].ToString();
 
-                    
                     var insertPlayer = InsertJogador(jsonString, name);
 
-                    return prediction;
+                    return jsonString;
                 }
             }
             catch (Exception ex)
@@ -651,9 +651,30 @@ namespace PlayerClassifier.WPF.Repositories
             return true;
         }
 
-        public bool UpdateProfileChanges(byte[] image, string job)
+        public bool UpdateProfileChanges(string job, string username, UserAccountModel user)
         {
-            return true;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                string sql = "UPDATE UsersPc SET Cargo = @Cargo WHERE Username = @username";
+                command.CommandText = sql;
+                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = username;
+                command.Parameters.Add("@Cargo", System.Data.SqlDbType.NVarChar).Value = job;
+                //command.Parameters.AddWithValue("@Username", user.profilePicture); // Utilizar o Username do usuário
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
     }

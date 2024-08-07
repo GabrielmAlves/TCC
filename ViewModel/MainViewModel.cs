@@ -9,6 +9,7 @@ using System.Windows.Input;
 using FontAwesome.Sharp;
 using PlayerClassifier.WPF.Model;
 using PlayerClassifier.WPF.Repositories;
+using PlayerClassifier.WPF.View;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -19,7 +20,6 @@ namespace PlayerClassifier.WPF.ViewModel
         private IconChar _icon;
         private UserAccountModel __currentUserAccount;
         private IUserRepository userRepository;
-        
         public UserAccountModel CurrentUserAccount { get { return __currentUserAccount; } set { __currentUserAccount = value; OnPropertyChanged(nameof(CurrentUserAccount)); } }
 
         public ViewModelBase CurrentChildView 
@@ -66,7 +66,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ShowHistoryViewCommand { get; }
         public ICommand ShowObservationViewCommand { get; }
         public ICommand ShowProfileViewCommand { get; }
-
+        //public ICommand LogoutCommand { get; }
 
         public MainViewModel()
         {
@@ -79,8 +79,18 @@ namespace PlayerClassifier.WPF.ViewModel
             ShowHistoryViewCommand = new ViewModelCommand(ExecuteShowHistoryViewCommand);
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
             ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
+            //LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
             ExecuteShowHomeViewCommand(null);
         }
+
+        //private void ExecuteLogoutCommand(object obj)
+        //{
+        //    Properties.Settings.Default.UserName = "";
+        //    Properties.Settings.Default.Save();
+
+        //    var loginView = new LoginView();
+        //    loginView.Show();
+        //}
 
         private void ExecuteShowProfileViewCommand(object obj)
         {

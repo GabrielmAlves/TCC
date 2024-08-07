@@ -19,7 +19,7 @@ namespace PlayerClassifier.WPF.Model
         bool AddUploadedFiles(string path1, string path2, string user);
         bool AddPlayerOnHold(string playerInfos);
         bool EditPassword(NetworkCredential credential);
-        bool UpdateProfileChanges(byte[] image, string job);
+        bool UpdateProfileChanges(string job, string username, UserAccountModel user);
         string ClassifyPlayer(string filePath);
         string ComparePlayers(string jsonPaths);
         void Edit (UserModel userModel);

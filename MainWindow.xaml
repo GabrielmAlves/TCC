@@ -259,7 +259,7 @@
                                                 </ItemsPanelTemplate>
                                             </Menu.ItemsPanel>
                                             <MenuItem Header="Perfil" Click="MenuItem_Click" Cursor="Hand" Command="{Binding ShowProfileViewCommand}" HorizontalAlignment="Center"/>
-                                            <MenuItem Header="Sair" Click="MenuItem_Click" Cursor="Hand" HorizontalAlignment="Center"/>
+                                            <MenuItem Header="Sair" Cursor="Hand" HorizontalAlignment="Center" Click="BtnLogout_Command"/>
                                         </Menu>
                                     </Popup>
                                 </Grid>

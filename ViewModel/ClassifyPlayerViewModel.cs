@@ -1,4 +1,5 @@
-﻿using PlayerClassifier.WPF.Model;
+﻿using Newtonsoft.Json.Linq;
+using PlayerClassifier.WPF.Model;
 using PlayerClassifier.WPF.Repositories;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -51,7 +52,23 @@ namespace PlayerClassifier.WPF.ViewModel
                 var userInfo = _userRepository.GetUploadedFile(Thread.CurrentPrincipal.Identity.Name);
                 UserFile = userInfo.UploadedFile;
                 var classifyPlayerResult = await Task.Run(() => _userRepository.ClassifyPlayer(UserFile));
-                ClassificationResult = classifyPlayerResult;
+
+                JArray jsonArray = JArray.Parse(classifyPlayerResult);
+                string prediction = jsonArray[0]["prediction"].ToString();
+                string name = jsonArray[0]["name"].ToString();
+                int predictionInt = int.Parse(prediction);
+                
+                if (predictionInt == 1)
+                {
+                    ClassificationResult = string.Format(
+                "{0}: potencial alto! Destaques: " +
+                "reação, passe curto, idade e posicionamento!", name);
+                } else if (predictionInt == 0)
+                {
+                    ClassificationResult = string.Format(
+                "{0}: baixo potencial! :(" +
+                "", name);
+                }
                 IsModalVisible = true;
             }
 
