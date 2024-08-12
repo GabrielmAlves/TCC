@@ -20,25 +20,40 @@ namespace PlayerClassifier.WPF.ViewModel
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-            loadCurrentUserData();
+            LoadCurrentUserData();
         }
-        private void loadCurrentUserData()
+        private void LoadCurrentUserData()
         {
-            var user = userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
-            if (user != null)
+            try
             {
+                if (Thread.CurrentPrincipal != null && Thread.CurrentPrincipal.Identity != null && Thread.CurrentPrincipal.Identity.IsAuthenticated)
                 {
-                    CurrentUserAccount.userName = user.UserName;
-                    CurrentUserAccount.displayName = $"Bem-vindo {user.UserName}!";
-                    CurrentUserAccount.cargo = user.UserJob;
-
-                };
+                    var user = userRepository.GetByUserName(Thread.CurrentPrincipal.Identity.Name);
+                    if (user != null)
+                    {
+                        CurrentUserAccount.userName = user.UserName;
+                        CurrentUserAccount.displayName = $"Bem-vindo {user.UserName}!";
+                        CurrentUserAccount.cargo = user.UserJob;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuário não encontrado. A aplicação será encerrada.");
+                        Application.Current.Shutdown();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum usuário autenticado. A aplicação será encerrada.");
+                    Application.Current.Shutdown();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                CurrentUserAccount.displayName = "Usuário inválido.";
+                MessageBox.Show($"Erro: {ex.Message}");
                 Application.Current.Shutdown();
             }
         }
+
+
     }
 }

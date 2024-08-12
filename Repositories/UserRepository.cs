@@ -310,36 +310,52 @@ namespace PlayerClassifier.WPF.Repositories
 
         public void sendEmail(string userEmail)
         {
-            MimeMessage message = new MimeMessage();
+            var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Player Classifier", "playerclassifier@gmail.com"));
             message.To.Add(MailboxAddress.Parse(userEmail));
             message.Subject = "Bem-vindo!";
-            message.Body = new TextPart("plain")
-            {
-                Text = @"Você se cadastrou no sistema do Player Classifier!"
-            };
-                
+
+            string htmlBody = @"
+                <html>
+                <body style='background-color: #f2f2f2; padding: 20px;'>
+                    <h2>Bem-vindo ao Player Classifier!</h2>
+                    <p>Com essa ferramenta, você terá mais um auxílio no momento da contratação de um jogador ao poder utilizar nossa funcionalidade de classificação de potencial. 
+                    Além disso, terá acesso a seu histórico de classificações e poderá adicionar jogadores a uma classe especial chamada <strong>'Em Observação'</strong>!</p>
+                    <p>Esperamos conseguir auxiliar seu clube!</p>
+                    <br>
+                    <img src='cid:pc-image' alt='Player Classifier'>
+                </body>
+                </html>";
+
+            var builder = new BodyBuilder();
+            builder.HtmlBody = htmlBody;
+
+            // Adicionar imagem como anexo embutido
+            var image = builder.LinkedResources.Add("C:\\Users\\Usuario\\OneDrive\\Documentos\\Faculdade\\9 SEMESTRE\\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\\TCC\\PlayerClassifier\\PlayerClassifier.WPF\\Images\\pc-image.png");
+            image.ContentId = "pc-image";
+
+            message.Body = builder.ToMessageBody();
+
             string email = "playerclassifier@gmail.com";
             string senha = "wjom fzgo cgti qlsi";
 
-            SmtpClient smtpClient = new SmtpClient();
-
-            try
+            using (var smtpClient = new SmtpClient())
             {
-                smtpClient.Connect("smtp.gmail.com", 465, true);
-                smtpClient.Authenticate(email, senha);
-                smtpClient.Send(message);
-                Console.WriteLine("E-mail enviado.");
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                smtpClient.Disconnect(true);
-                smtpClient.Dispose();
+                try
+                {
+                    smtpClient.Connect("smtp.gmail.com", 465, true);
+                    smtpClient.Authenticate(email, senha);
+                    smtpClient.Send(message);
+                    Console.WriteLine("E-mail enviado.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    smtpClient.Disconnect(true);
+                }
             }
         }
         public void ConfigurePython()
