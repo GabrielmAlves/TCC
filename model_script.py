@@ -3,10 +3,8 @@ import json
 import joblib
 import re
 
-
 def extrair_nome_dataset(caminho):
     match = re.search(r'\\(\w+)_dataset', caminho)
-   
     if match:
         return match.group(1)
     else:
@@ -14,6 +12,12 @@ def extrair_nome_dataset(caminho):
 
 def process_csv(file_path, model_path, scaler_path):
     df = pd.read_csv(file_path)
+
+    # Remover espaços em branco e caracteres extras dos nomes das colunas
+    df.columns = df.columns.str.strip().str.replace(';', '')
+
+    # Verificar e corrigir espaços em branco no conteúdo das colunas
+    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
     scaler = joblib.load(scaler_path)
     model = joblib.load(model_path)
@@ -42,7 +46,8 @@ def process_csv(file_path, model_path, scaler_path):
     for record in result_json:
         record['coefficients'] = coefficients_dict
 
-    return json.dumps(result_json, indent=4)
+    # Remover a indentação para evitar espaços desnecessários
+    return json.dumps(result_json)
 
 def comparePlayers(userFiles):
     data = json.loads(userFiles)
@@ -77,7 +82,8 @@ def comparePlayers(userFiles):
             "GreaterResult": "Equal"
         }
 
-    return json.dumps(comparison_result, indent=4)
+    # Remover a indentação para evitar espaços desnecessários
+    return json.dumps(comparison_result)
 
 def main(csv_path):
     model_path = "C:/Users/Usuario/OneDrive/Documentos/Faculdade/9 SEMESTRE/PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I/TCC/PlayerClassifier/PlayerClassifier.WPF/modelo.pkl"

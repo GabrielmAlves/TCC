@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
+using System.IO;
+using PlayerClassifier.WPF.Services;
 
 namespace PlayerClassifier.WPF.ViewModel
 {
@@ -17,7 +20,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private string _classificationResult;
         private bool _isModalVisible;
         private bool _isClassifying;
-
+        private readonly IDialogService _dialogService;
         public string UserFile { get { return _uploadedFile; } set { _uploadedFile = value; OnPropertyChanged(nameof(UserFile)); } }
         public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string ClassificationResult { get { return _classificationResult; } set { _classificationResult = value; OnPropertyChanged(nameof(ClassificationResult)); } }
@@ -27,6 +30,7 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ClassifyCommand { get; set; }
         public ICommand CloseModalCommand { get; set; }
         public ICommand PutPlayerOnWatchCommand { get; set; }
+        public ICommand DownloadReferenceFileCommand { get; set; }
 
         public ClassifyPlayerViewModel()
         {
@@ -35,6 +39,40 @@ namespace PlayerClassifier.WPF.ViewModel
             ClassifyCommand = new ViewModelCommand(async obj => await ExecuteClassifyCommand(obj), CanExecuteClassifyCommand);
             CloseModalCommand = new ViewModelCommand(obj => IsModalVisible = false);
             PutPlayerOnWatchCommand = new ViewModelCommand(obj => PutPlayerOnWatch());
+            DownloadReferenceFileCommand = new ViewModelCommand(ExecuteDownloadReferenceFileCommand);
+            //_dialogService = dialogService;
+        }
+
+        private void ExecuteDownloadReferenceFileCommand(object obj)
+        {
+            string referenceFile = @"C:\Users\Usuario\OneDrive\Documentos\Apresentação\mbappe_dataset.csv";
+
+            try
+            {
+                if (File.Exists(referenceFile))
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "CSV file (*.csv)|*.csv";
+                    saveFileDialog.DefaultExt = ".csv";
+                    saveFileDialog.FileName = referenceFile;
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        File.Copy(referenceFile, saveFileDialog.FileName, true);
+                    }
+                }
+                else
+                {
+                    throw new FileNotFoundException("Arquivo não encontrado!", referenceFile);
+                }
+            } catch (FileNotFoundException ex)
+            {
+                _dialogService.ShowMessage($"Erro: {ex.Message}\nCaminho: {ex.FileName}", "Erro de Arquivo");
+            }
+            catch (Exception ex)
+            {
+                _dialogService.ShowMessage($"Ocorreu um erro: {ex.Message}", "Erro");
+            }
         }
 
         private bool CanExecuteClassifyCommand(object obj)

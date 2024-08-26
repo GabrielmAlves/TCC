@@ -51,7 +51,7 @@ namespace PlayerClassifier.WPF.ViewModel
             {
                 MessageBox.Show($"Erro: {ex.Message}");
                 Application.Current.Shutdown();
-            }
+            } 
         }
 
 

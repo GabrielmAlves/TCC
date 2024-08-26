@@ -89,8 +89,10 @@ namespace PlayerClassifier.WPF
             if (currentWindow != null)
             {
                 currentWindow.Close();
+                Window newWindow = Window.GetWindow(loginview);
+                newWindow.Show();   
             }
-            loginview.Show(); //bug do logout
+            //loginview.Show(); //bug do logout
         }
     }
 }

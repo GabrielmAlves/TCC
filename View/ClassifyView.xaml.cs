@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PlayerClassifier.WPF.ViewModel;
+using PlayerClassifier.WPF.Services;
 
 namespace PlayerClassifier.WPF.View
 {
@@ -26,6 +27,7 @@ namespace PlayerClassifier.WPF.View
         public ClassifyView()
         {
             InitializeComponent();
+            //DataContext = new ClassifyPlayerViewModel(new DialogService());
         }
 
         private void btnUploadFile_Click (object sender, RoutedEventArgs e)

@@ -21,7 +21,15 @@ namespace PlayerClassifier.WPF
                 {
                     var mainView = new MainWindow();
                     mainView.Show();
-                    loginView.Close();
+                    //loginView.Close();
+                }
+            };
+
+            loginView.Closed += (s, ev) =>
+            {
+                if (!Application.Current.Windows.OfType<MainWindow>().Any())
+                {
+                    Application.Current.Shutdown();
                 }
             };
         }

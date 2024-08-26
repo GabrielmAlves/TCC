@@ -111,6 +111,38 @@
                                 </Button.Template>
                             </Button>
                         </StackPanel>
+                        <StackPanel>
+                            <Button x:Name="btnReferenceFile"
+                                    BorderThickness="0"
+                                    Content="Arquivo de referência"
+                                    Command="{Binding DownloadReferenceFileCommand}"
+                                    Foreground="white"
+                                    FontSize="12"
+                                    FontFamily="Montserrat"
+                                    Cursor="Hand"
+                                    Grid.Column="3"
+                                    Margin="0,35,0,0">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#000"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#000"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </Grid>
