@@ -28,9 +28,9 @@
             <view:ClassifyView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewmodels:CompareViewModel}">
+        <!--<DataTemplate DataType="{x:Type viewmodels:CompareViewModel}">
             <view:CompareView/>
-        </DataTemplate>
+        </DataTemplate>-->
 
         <DataTemplate DataType="{x:Type viewmodels:HistoryViewModel}">
             <view:HistoryView/>
@@ -110,14 +110,14 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{StaticResource menuButton}"
+                    <!--<RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource primaryBackColor1}"
                                  Command="{Binding ShowCompareViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fonta:IconImage Icon="Futbol" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Comparar" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource primaryBackColor1}"

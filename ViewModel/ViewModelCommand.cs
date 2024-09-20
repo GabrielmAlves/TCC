@@ -37,7 +37,7 @@ namespace PlayerClassifier.WPF.ViewModel
             return _canExecuteAction == null ? true : _canExecuteAction(parameter); 
         }
 
-        public void Execute(object? parameter)
+        public void Execute(object? parameter)  
         {
             _executeAction(parameter); //executa a ação, vai executar o método que vai ser delegado a ViewModel
         }

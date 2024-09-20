@@ -75,7 +75,7 @@ namespace PlayerClassifier.WPF.ViewModel
             //Console.WriteLine(CurrentUserAccount.cargo);
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowClassifyViewCommand = new ViewModelCommand(ExecuteShowClassifyViewCommand);
-            ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
+            //ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
             ShowHistoryViewCommand = new ViewModelCommand(ExecuteShowHistoryViewCommand);
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
             ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
@@ -113,12 +113,12 @@ namespace PlayerClassifier.WPF.ViewModel
             Icon = IconChar.History;
         }
 
-        private void ExecuteShowCompareViewCommand(object obj)
-        {
-            CurrentChildView = new CompareViewModel();
-            ChildViewName = "Compare";
-            Icon = IconChar.FutbolBall;
-        }
+        //private void ExecuteShowCompareViewCommand(object obj)
+        //{
+        //    CurrentChildView = new CompareViewModel();
+        //    ChildViewName = "Compare";
+        //    Icon = IconChar.FutbolBall;
+        //}
 
         private void ExecuteShowClassifyViewCommand(object obj)
         {
