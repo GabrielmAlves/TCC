@@ -42,7 +42,7 @@ namespace PlayerClassifier.WPF.View
                 //string name = openFileDialog.SafeFileName;
                 if (DataContext is ClassifyPlayerViewModel viewModel)
                 {
-                    MessageBox.Show("Arquivo selecionado: ", path);
+                    MessageBox.Show("Arquivo selecionado: " + path);
                     viewModel.UserFile = path;
                     viewModel.FileWasUploaded(path);
                 }
