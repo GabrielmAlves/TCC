@@ -25,7 +25,6 @@ namespace PlayerClassifier.WPF.ViewModel
         private int _imageUploaded;
         private int _jobChanged;
 
-        //public bool IsTextBoxEnabled { get; set; }
         public UserAccountModel CurrentUser { get { return _currentUser; } set { _currentUser = value; OnPropertyChanged(nameof(CurrentUser)); } }
         public string UserCargo
         {
@@ -58,7 +57,6 @@ namespace PlayerClassifier.WPF.ViewModel
             loadCargo();
             loadProfilePicture();
             SaveChangesCommand = new ViewModelCommand(ExecuteSaveChangesCommand, CanExecuteSaveChangesCommand);
-            //IsTextBoxEnabled = false;
         }
 
         private bool CanExecuteSaveChangesCommand(object obj)
@@ -88,7 +86,6 @@ namespace PlayerClassifier.WPF.ViewModel
             }
             else
             {
-                //CurrentUser.displayName = "Usuário inválido.";
                 Application.Current.Shutdown();
             }
         }
@@ -101,12 +98,10 @@ namespace PlayerClassifier.WPF.ViewModel
                 {
                     var userImage = _userRepository.GetProfilePicture(Thread.CurrentPrincipal.Identity.Name);
                     ProfilePicture = userImage.ProfilePicture;
-                    //ProfilePicture = CurrentUser.profilePicture;
                 };
             }
             else
             {
-                //CurrentUser.displayName = "Usuário inválido.";
                 Application.Current.Shutdown();
             }
         }

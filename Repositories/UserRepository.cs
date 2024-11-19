@@ -31,9 +31,7 @@ namespace PlayerClassifier.WPF.Repositories
         public bool Add(NetworkCredential credential, string userName, string userEmail, string cargo)
         {
             bool userAdded;
-                //bool userExist = verifyUser(userName, userEmail);
-                //if (userExist == false)
-                //{
+                
                     using (var connection = GetConnection())
                     using (var command = new SqlCommand())
                     {
@@ -50,49 +48,13 @@ namespace PlayerClassifier.WPF.Repositories
                         sendEmail(userEmail);
                         userAdded = true;
                     }
-                //} else
-                //{
-                    //Console.WriteLine("ERRO");
-                //}
+                
             return userAdded;
         }
 
-        //private bool verifyUser(string userName, string userEmail)
-        //{
-        //    bool exist;
-        //    int quantity = 0;
-        //    using (var connection2 = GetConnection())
-        //    using (var command2 = new SqlCommand())
-        //    {
-        //        connection2.Open();         
-        //        command2.Connection = connection2;
-        //        command2.CommandType= System.Data.CommandType.Text;
-        //        command2.CommandText = "select COUNT(*) from [UsersPc] where Username=@username and [Email]=@useremail";
-        //        command2.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value =userName;
-        //        command2.Parameters.Add("@useremail", System.Data.SqlDbType.NVarChar).Value = userEmail;
-        //        SqlDataReader reader = command2.ExecuteReader();
-        //        if (reader.HasRows)
-        //            quantity = Convert.ToInt32(command2.ExecuteScalar());
-        //        if (quantity > 0)
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                Guid userId = reader.GetGuid(0);
-        //                string user = reader.GetString(1);
-        //                string email = reader.GetString(2);
-        //                Console.WriteLine($"UserID: {userId}, UserName: {user}, Email: {email}");
-        //            }
-        //            exist = true;
-        //        }
-        //        else
-        //        {
-        //            exist = false;;
-        //        }
-        //    }
-        //    return exist;
-        //}
+        
 
-        public bool AuthenticateUser(NetworkCredential credential) //esse método estabelece uma conexão com o SQL Server e faz uma query. Se bem sucedida, o usuário é válido
+        public bool AuthenticateUser(NetworkCredential credential) 
         {
             bool validUser;
             int userCount;
@@ -145,16 +107,16 @@ namespace PlayerClassifier.WPF.Repositories
                     {
                         userInfo = new UserModel()
                         {
-                            ProfilePicture = null  // Inicializar ProfilePicture como null por padrão
+                            ProfilePicture = null  
                         };
 
-                        // Verificar se ProfilePicture não é DBNull antes de atribuir
+                        
                         if (!(reader["ProfilePicture"] is DBNull))
                         {
-                            long byteLength = reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, null, 0, 0); // Obter o comprimento do array de bytes
+                            long byteLength = reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, null, 0, 0); 
                             byte[] profilePictureBytes = new byte[byteLength];
-                            reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, profilePictureBytes, 0, (int)byteLength); // Ler o ProfilePicture como byte[]
-                            userInfo.ProfilePicture = profilePictureBytes; // Atribuir o ProfilePicture como byte[]
+                            reader.GetBytes(reader.GetOrdinal("ProfilePicture"), 0, profilePictureBytes, 0, (int)byteLength); 
+                            userInfo.ProfilePicture = profilePictureBytes; 
                         }
                     }
                 }
@@ -214,7 +176,7 @@ namespace PlayerClassifier.WPF.Repositories
                 command.CommandText = sql;
                 command.Parameters.Add("@userinfo", System.Data.SqlDbType.NVarChar).Value = userInfo;
                 command.Parameters.AddWithValue("@ProfilePicture", profileImage);
-                command.Parameters.AddWithValue("@Username", user.profilePicture); // Utilizar o Username do usuário
+                command.Parameters.AddWithValue("@Username", user.profilePicture); 
                 int rowsAffected = command.ExecuteNonQuery();
 
                 if (rowsAffected > 0)
@@ -240,7 +202,7 @@ namespace PlayerClassifier.WPF.Repositories
                 command.CommandText = sql;
                 command.Parameters.Add("@userName", System.Data.SqlDbType.NVarChar).Value = userName;
                 command.Parameters.AddWithValue("@UploadedFile", filePath);
-                //command.Parameters.AddWithValue("@Username", user.UploadedFile); // Utilizar o Username do usuário
+                
                 int rowsAffected = command.ExecuteNonQuery();
 
                 if (rowsAffected > 0)
@@ -330,7 +292,7 @@ namespace PlayerClassifier.WPF.Repositories
             var builder = new BodyBuilder();
             builder.HtmlBody = htmlBody;
 
-            // Adicionar imagem como anexo embutido
+            
             var image = builder.LinkedResources.Add("C:\\Users\\Usuario\\OneDrive\\Documentos\\Faculdade\\9 SEMESTRE\\PROJETO FINAL EM ENGENHARIA DE COMPUTAÇÃO I\\TCC\\PlayerClassifier\\PlayerClassifier.WPF\\Images\\pc-image.png");
             image.ContentId = "pc-image";
 
@@ -394,7 +356,7 @@ namespace PlayerClassifier.WPF.Repositories
                     JArray jsonArray = JArray.Parse(jsonString);
                     string prediction = jsonArray[0]["prediction"].ToString();
                     string name = jsonArray[0]["name"].ToString();
-                    //string coefficients = jsonArray[0]["coefficients"].ToString();
+                    
 
                     var insertPlayer = InsertJogador(jsonString, name);
 
@@ -430,8 +392,6 @@ namespace PlayerClassifier.WPF.Repositories
                     dynamic result = modelScript.comparePlayers(jsonPaths);
 
                     string jsonString = result.ToString();
-
-                    //var insertPlayer = InsertJogador(jsonString);
 
                     return jsonString;
                 }
@@ -679,7 +639,7 @@ namespace PlayerClassifier.WPF.Repositories
                 command.CommandText = sql;
                 command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = username;
                 command.Parameters.Add("@Cargo", System.Data.SqlDbType.NVarChar).Value = job;
-                //command.Parameters.AddWithValue("@Username", user.profilePicture); // Utilizar o Username do usuário
+                
                 int rowsAffected = command.ExecuteNonQuery();
 
                 if (rowsAffected > 0)

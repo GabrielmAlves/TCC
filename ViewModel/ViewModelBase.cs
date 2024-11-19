@@ -9,9 +9,9 @@ namespace PlayerClassifier.WPF.ViewModel
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged; //avisa binding clients que uma property mudou e os valores precisam ser reavaliados
+        public event PropertyChangedEventHandler? PropertyChanged; 
 
-        public void OnPropertyChanged (string propertyName) //cria o evento quando uma property mudou
+        public void OnPropertyChanged (string propertyName) 
         {
             PropertyChanged?.Invoke (this, new PropertyChangedEventArgs (propertyName));
         }

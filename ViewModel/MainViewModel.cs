@@ -66,31 +66,19 @@ namespace PlayerClassifier.WPF.ViewModel
         public ICommand ShowHistoryViewCommand { get; }
         public ICommand ShowObservationViewCommand { get; }
         public ICommand ShowProfileViewCommand { get; }
-        //public ICommand LogoutCommand { get; }
+        
 
         public MainViewModel()
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-            //Console.WriteLine(CurrentUserAccount.cargo);
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowClassifyViewCommand = new ViewModelCommand(ExecuteShowClassifyViewCommand);
-            //ShowCompareViewCommand = new ViewModelCommand(ExecuteShowCompareViewCommand);
             ShowHistoryViewCommand = new ViewModelCommand(ExecuteShowHistoryViewCommand);
             ShowObservationViewCommand = new ViewModelCommand(ExecuteShowObservationViewCommand);
             ShowProfileViewCommand = new ViewModelCommand(ExecuteShowProfileViewCommand);
-            //LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
             ExecuteShowHomeViewCommand(null);
         }
-
-        //private void ExecuteLogoutCommand(object obj)
-        //{
-        //    Properties.Settings.Default.UserName = "";
-        //    Properties.Settings.Default.Save();
-
-        //    var loginView = new LoginView();
-        //    loginView.Show();
-        //}
 
         private void ExecuteShowProfileViewCommand(object obj)
         {
@@ -112,13 +100,6 @@ namespace PlayerClassifier.WPF.ViewModel
             ChildViewName = "Histórico";
             Icon = IconChar.History;
         }
-
-        //private void ExecuteShowCompareViewCommand(object obj)
-        //{
-        //    CurrentChildView = new CompareViewModel();
-        //    ChildViewName = "Compare";
-        //    Icon = IconChar.FutbolBall;
-        //}
 
         private void ExecuteShowClassifyViewCommand(object obj)
         {

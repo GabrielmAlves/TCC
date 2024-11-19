@@ -29,12 +29,11 @@ namespace PlayerClassifier.WPF.Converters
                 }
                 catch (Exception)
                 {
-                    // Handle any exceptions appropriately
-                    return DependencyProperty.UnsetValue; // or return null;
+                    return DependencyProperty.UnsetValue; 
                 }
             }
 
-            return DependencyProperty.UnsetValue; // or return null;
+            return DependencyProperty.UnsetValue; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

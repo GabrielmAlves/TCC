@@ -40,7 +40,6 @@ namespace PlayerClassifier.WPF.ViewModel
             CloseModalCommand = new ViewModelCommand(obj => IsModalVisible = false);
             PutPlayerOnWatchCommand = new ViewModelCommand(obj => PutPlayerOnWatch());
             DownloadReferenceFileCommand = new ViewModelCommand(ExecuteDownloadReferenceFileCommand);
-            //_dialogService = dialogService;
         }
 
         private void ExecuteDownloadReferenceFileCommand(object obj)

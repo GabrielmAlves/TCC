@@ -42,7 +42,6 @@ namespace PlayerClassifier.WPF.View
             {
                 string path = openFileDialog.FileName;
                 string fileName = openFileDialog.SafeFileName;
-                //imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var image = imageName.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
                 var profileBinding = new ProfileViewModel();
                 profileBinding.ImageUploaded = 1;

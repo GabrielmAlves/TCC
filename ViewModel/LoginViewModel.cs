@@ -16,17 +16,13 @@ namespace PlayerClassifier.WPF.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        //definindo properties que vão estabelecer o binding entre View e ViewModel
-
         private string _username;
         private string _userEmail;
         private SecureString _password;
         private string _errorMessage;
-        private bool _isViewVisible = true; //para ver se a View é visível (se o login der certo, hide the view)
+        private bool _isViewVisible = true; 
         private IUserRepository userRepository;
-        //private ViewModelBase _currentView;
-        //private string _childViewName;
-        //private IconChar _viewIcon;
+        
         public string Username
         {
             get { return _username; }
@@ -34,7 +30,7 @@ namespace PlayerClassifier.WPF.ViewModel
         }
         public string UserEmail {
             get { return _userEmail; }
-            set { _userEmail = value; OnPropertyChanged(nameof(UserEmail)); } //OnPropertyChanged chamado para notificar que o valor da property foi alterado
+            set { _userEmail = value; OnPropertyChanged(nameof(UserEmail)); } 
         }
         public SecureString Password { 
             get { return _password; } 
@@ -49,46 +45,18 @@ namespace PlayerClassifier.WPF.ViewModel
             set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } 
             }
 
-        //public ViewModelBase CurrentView
-        //{
-        //    get { return _currentView; }
-        //    set { _currentView = value; OnPropertyChanged(nameof(CurrentView)); }
-        //}
-        //public string ChildViewName
-        //{
-        //    get { return _childViewName; }
-        //    set { _childViewName = value; OnPropertyChanged(nameof(ChildViewName)); }
-        //}
-        //public IconChar Icon
-        //{
-        //    get { return _viewIcon; }
-        //    set { _viewIcon = value; OnPropertyChanged(nameof(Icon)); }
-        //}
-
-        //definindo os comandos 
 
         public ICommand LoginCommand { get; }
-        //public ICommand ShowPasswordCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
         public ICommand RememberMeCommand { get; }
         public ICommand DontHaveAccountCommand { get; }
-        //public ICommand ShowRegisterViewCommand { get; }
         public LoginViewModel ()
         {
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
             DontHaveAccountCommand = new ViewModelCommand(ExecuteDontHaveAccountCommand);
             RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
-            //ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);
         }
-
-        //private void ExecuteShowRegisterViewCommand(object obj)
-        //{
-        //    CurrentView = new RegisterViewModel();
-        //    ChildViewName = "Em observação";
-        //    Icon = IconChar.Binoculars;
-        //}
 
         private bool CanExecuteLoginCommand (object obj)
         {
@@ -99,7 +67,7 @@ namespace PlayerClassifier.WPF.ViewModel
                 validData = false;
             }
             else
-                validData = true; //se os campos não estiverem vazios, o botão de login fica habilitado e vc pode clicar nele
+                validData = true; 
             return validData;
         }
 
@@ -109,7 +77,7 @@ namespace PlayerClassifier.WPF.ViewModel
             if (isValidUser)
             {
                 Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-                IsViewVisible = false; //login bem sucedido, esconde a tela
+                IsViewVisible = false; 
             } else
             {
                 ErrorMessage = "Usuário ou senha inválidos.";

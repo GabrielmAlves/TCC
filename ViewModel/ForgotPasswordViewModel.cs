@@ -37,7 +37,7 @@ namespace PlayerClassifier.WPF.ViewModel
         private bool CanExecuteConfirmPasswordCommand(object obj)
         {
             bool isFieldsOk;
-            // || Name.All(c => char.IsLetter(c) && !char.IsPunctuation(c)) || string.IsNullOrEmpty(UserName) || Password == null || Password.Length < 8 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Cargo) || Cargo.All(c => char.IsLetter(c) && !char.IsPunctuation(c))
+            
             if (string.IsNullOrEmpty(UserName) || NewPassword == null || NewPassword.Length < 8)
             {
                 isFieldsOk = false;

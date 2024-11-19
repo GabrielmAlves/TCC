@@ -27,7 +27,6 @@ namespace PlayerClassifier.WPF.View
         public ClassifyView()
         {
             InitializeComponent();
-            //DataContext = new ClassifyPlayerViewModel(new DialogService());
         }
 
         private void btnUploadFile_Click (object sender, RoutedEventArgs e)
@@ -39,7 +38,7 @@ namespace PlayerClassifier.WPF.View
             if (fileOpened == true)
             {
                 string path = openFileDialog.FileName;
-                //string name = openFileDialog.SafeFileName;
+                
                 if (DataContext is ClassifyPlayerViewModel viewModel)
                 {
                     MessageBox.Show("Arquivo selecionado: " + path);
